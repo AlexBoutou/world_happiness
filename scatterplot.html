@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 60px;
+            height: 18px;
+            padding: 2px;
+            font: 13px sans-serif;
+            background: white;
+            border: 2px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <svg id="graph" width=700 height=500></svg>
+</div>
+<div>
+    <svg id="legend" width=260 height=500></svg>
+</div>
+<script>
+
+    const margin = {top: 20, right: 10, bottom: 50, left: 50};
+
+    const width = 700 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    let svg = d3.select("#graph").append("svg")
+        .attr("width", 700)
+        .attr("height", 500);
+
+
+    //var new_columns = {"Year":"year", "Country":"country", "Region":"region", "Happiness Rank":"rank", "Happiness Score":"score", "Standard Error":"error", "Economy (GDP per Capita)":"gdp", "Family":"family", "Health (Life Expectancy)":"health", "Freedom":"freedom", "Trust (Government Corruption)":"trust", "Generosity":"generosity", "Dystopia Residual":"dystopia"};
+
+    d3.csv("2015.csv", function (data) {
+
+        let parseDate = d3.timeParse("%Y");
+
+        console.log([function (d) {
+            return d["Region"]
+        }]);
+        data.forEach(function (d) {
+
+            d.Year = parseDate(d.Year);
+        });
+
+        let x = d3.scaleLinear()
+            .domain([d3.min(data, function (d) {
+                return d["Economy (GDP per Capita)"]
+            }), d3.max(data, function (d) {
+                return d["Economy (GDP per Capita)"]
+            })])
+            .range([margin.left, margin.left + width]);
+
+        let y = d3.scaleLinear()
+            .domain([0, d3.max(data, function (d) {
+                return d["Happiness Score"]
+            })])
+            .range([margin.top + height, margin.top]);
+
+        const color = d3.scaleOrdinal(d3.schemeCategory20);
+
+        let div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        svg.selectAll("dots").data(data).enter()
+            .append("circle")
+            .attr("class", "dots")
+            .attr("cx", function (d) {
+                return x(d["Economy (GDP per Capita)"])
+            })
+            .attr("cy", function (d) {
+                return y(d["Happiness Score"])
+            })
+            .attr("r", 6)
+            .style("fill", function (d) {
+                return color(d["Region"])
+            })
+            .on("mouseover", function (d) {
+                div.transition()
+                    .duration(30)
+                    .style("opacity", 1);
+                div.html(d["Country"])
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px")
+            })
+            .on("mouseout", function (d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+
+        let xAxis = d3.axisBottom()
+            .scale(x);
+
+        let yAxis = d3.axisLeft()
+            .scale(y);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height + margin.top) + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .call(yAxis);
+
+        svg.append("text")
+            .attr("y", height + margin.top + margin.bottom - 10)
+            .attr("x", (width + margin.left + margin.right) / 2)
+            .style("text-anchor", "middle")
+            .text("Importance du PIB/habitant");
+
+        svg.append("text")
+            .attr("x", -height / 2)
+            .attr("y", 20)
+            .attr("transform", "rotate(-90)")
+            .style("text-anchor", "middle")
+            .text("Happiness Score");
+
+
+    })
+
+
+</script>
+
+</body>
