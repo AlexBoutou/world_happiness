@@ -34,12 +34,12 @@
 </div>
 <script>
 
-    let margin = {top: 90, right: 10, bottom: 90, left: 50};
+    const margin = {top: 90, right: 10, bottom: 90, left: 50};
 
-    let width = 700 - margin.left - margin.right,
+    const width = 700 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    let svg = d3.select("#graph").append("svg")
+    const svg = d3.select("#graph").append("svg")
         .attr("width", 700)
         .attr("height", 500);
 
