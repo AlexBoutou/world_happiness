@@ -33,9 +33,9 @@
     <svg id="legend" width=250 height=500></svg>
 </div>
 <script>
-
+    let year = 2015;
+    let fileName=`${year}.csv`;
     const margin = {top: 90, right: 10, bottom: 90, left: 50};
-
     const width = 700 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -46,7 +46,7 @@
 
     //var new_columns = {"Year":"year", "Country":"country", "Region":"region", "Happiness Rank":"rank", "Happiness Score":"score", "Standard Error":"error", "Economy (GDP per Capita)":"gdp", "Family":"family", "Health (Life Expectancy)":"health", "Freedom":"freedom", "Trust (Government Corruption)":"trust", "Generosity":"generosity", "Dystopia Residual":"dystopia"};
 
-    d3.csv("2015.csv", function (data) {
+    d3.csv(fileName, function (data) {
 
         let parseDate = d3.timeParse("%Y");
 
