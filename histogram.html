@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 150px;
+            height: 18px;
+            padding: 2px;
+            font: 13px sans-serif;
+            background: white;
+            border: 2px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <svg id="graph" width=960 height=500></svg>
+</div>
+<script>
+    let year = 2015;
+    let fileName = `${year}.csv`;
+    const margin = {top: 90, right: 10, bottom: 150, left: 50};
+    const width = 700 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    const svg = d3.select("#graph").append("svg")
+        .attr("width", 960)
+        .attr("height", 500);
+
+
+    //var new_columns = {"Year":"year", "Country":"country", "Region":"region", "Happiness Rank":"rank", "Happiness Score":"score", "Standard Error":"error", "Economy (GDP per Capita)":"gdp", "Family":"family", "Health (Life Expectancy)":"health", "Freedom":"freedom", "Trust (Government Corruption)":"trust", "Generosity":"generosity", "Dystopia Residual":"dystopia"};
+
+    d3.csv(fileName, function (data) {
+
+        let parseDate = d3.timeParse("%Y");
+
+        let regions = [];
+        let color = d3.scaleOrdinal(d3.schemeCategory20);
+
+        const div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        let average_scores = d3.nest() // nest function allows to group the calculation per level of a factor
+            .key(function (d) {
+                return d["Region"];
+            })
+            .rollup(function (d) {
+                return d3.mean(d.map(function (g) {
+                    return g["Happiness Score"];
+                }).sort(d3.ascending));
+            })
+            .entries(data);
+
+
+        average_scores.forEach(function (d) {
+            regions.push(d.key)
+        });
+
+        // Show the X scale
+        let x = d3.scaleBand()
+            .domain(regions)
+            .range([margin.left, margin.left + width])
+            .paddingInner(.1);
+
+        // Show the Y scale
+        let y = d3.scaleLinear()
+            .domain([0,
+                d3.max(data, function (d) {
+                    return d["Happiness Score"];
+                })])
+            .range([margin.top + height, margin.top]);
+
+        svg.append("g")
+            .attr("transform", "translate(0," + (height + margin.top) + ")")
+            .call(d3.axisBottom(x).tickSize(0))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
+
+        let yAxis = d3.axisLeft()
+            .scale(y);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .call(yAxis);
+
+        console.log(average_scores);
+
+        svg.selectAll("histogramme")
+            .data(average_scores)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function (d) {
+                return x(d.key);
+            })
+            .attr("y", function (d) {
+                return y(d["value"]);
+            })
+            .attr("width", function (d, i) {
+                console.log(x.bandwidth());
+                return x.bandwidth();
+            })
+            .attr("height", function (d) {
+                return height + margin.top - y(d["value"])
+            })
+            .style("fill", function (d) {
+                return color(d.key)
+            })
+            .on("mouseover", function (d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div.html("Happiness Score : " + (Math.round(d.value*1000))/1000)
+                    .style("left", (d3.event.pageX + 10) + "px")
+                    .style("top", (d3.event.pageY - 50) + "px");
+            })
+            .on("mouseout", function (d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+
+    })
+</script>
+
+</body>
