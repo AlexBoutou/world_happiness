@@ -30,8 +30,6 @@
 <body>
 <div>
     <svg id="graph" width=700 height=500></svg>
-</div>
-<div>
     <svg id="legend" width=260 height=500></svg>
 </div>
 <script>
@@ -45,21 +43,16 @@
         .attr("width", 700)
         .attr("height", 500);
 
-
-    //var new_columns = {"Year":"year", "Country":"country", "Region":"region", "Happiness Rank":"rank", "Happiness Score":"score", "Standard Error":"error", "Economy (GDP per Capita)":"gdp", "Family":"family", "Health (Life Expectancy)":"health", "Freedom":"freedom", "Trust (Government Corruption)":"trust", "Generosity":"generosity", "Dystopia Residual":"dystopia"};
-
     d3.csv("2015.csv", function (data) {
-
         let parseDate = d3.timeParse("%Y");
-
-        console.log([function (d) {
-            return d["Region"]
-        }]);
+        console.log(data);
+        let regions_list = [];
         data.forEach(function (d) {
-
             d.Year = parseDate(d.Year);
+            if (!regions_list.includes(d["Region"])) {
+                regions_list.push(d["Region"]);
+            }
         });
-
         let x = d3.scaleLinear()
             .domain([d3.min(data, function (d) {
                 return d["Economy (GDP per Capita)"]
@@ -137,7 +130,40 @@
             .style("text-anchor", "middle")
             .text("Happiness Score");
 
+        let legend = d3.select("#legend").append("svg")
+            .attr("width", 250)
+            .attr("height", 500);
 
+        legend.selectAll("mydots")
+            .data(regions_list)
+            .enter()
+            .append("circle")
+            .attr("cx", 10)
+            .attr("cy", function (d, i) {
+                return 100 + i * 25
+            })
+            .attr("r", 7)
+            .style("fill", function (d) {
+                return color(d)
+            });
+
+        // Add one dot in the legend for each name.
+        legend.selectAll("mylabels")
+            .data(regions_list)
+            .enter()
+            .append("text")
+            .attr("x", 20)
+            .attr("y", function (d, i) {
+                return 100 + i * 25
+            })
+            .style("fill", function (d) {
+                return color(d)
+            })
+            .text(function (d) {
+                return d
+            })
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
     })
 
 
