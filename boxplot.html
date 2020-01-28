@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 60px;
+            height: 18px;
+            padding: 2px;
+            font: 13px sans-serif;
+            background: white;
+            border: 2px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <svg id="graph" width=700 height=500></svg>
+    <svg id="legend" width=250 height=500></svg>
+</div>
+<script>
+
+    let margin = {top: 90, right: 10, bottom: 90, left: 50};
+
+    let width = 700 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    let svg = d3.select("#graph").append("svg")
+        .attr("width", 700)
+        .attr("height", 500);
+
+
+    //var new_columns = {"Year":"year", "Country":"country", "Region":"region", "Happiness Rank":"rank", "Happiness Score":"score", "Standard Error":"error", "Economy (GDP per Capita)":"gdp", "Family":"family", "Health (Life Expectancy)":"health", "Freedom":"freedom", "Trust (Government Corruption)":"trust", "Generosity":"generosity", "Dystopia Residual":"dystopia"};
+
+    d3.csv("2015.csv", function (data) {
+
+        let parseDate = d3.timeParse("%Y");
+
+        let regions = [];
+        let color = d3.scaleOrdinal(d3.schemeCategory20);
+
+        let sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
+            .key(function (d) {
+                return d["Region"];
+            })
+            .rollup(function (d) {
+                q1 = d3.quantile(d.map(function (g) {
+                    return g["Happiness Score"];
+                }).sort(d3.ascending), .25);
+                median = d3.quantile(d.map(function (g) {
+                    return g["Happiness Score"];
+                }).sort(d3.ascending), .5);
+                q3 = d3.quantile(d.map(function (g) {
+                    return g["Happiness Score"];
+                }).sort(d3.ascending), .75);
+                interQuantileRange = q3 - q1;
+                min = q1 - 1.5 * interQuantileRange;
+                max = q3 + 1.5 * interQuantileRange;
+                return ({q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max})
+            })
+            .entries(data);
+
+        console.log(data);
+
+        sumstat.forEach(function (d) {
+            regions.push(d.key)
+        });
+
+        // Show the X scale
+        let x = d3.scaleBand()
+            .range([margin.left, margin.left + width])
+            .domain(regions)
+            .paddingInner(1)
+            .paddingOuter(.5);
+
+        // Show the Y scale
+        let y = d3.scaleLinear()
+            .domain([d3.min(data, function (d) {
+                return d["Happiness Score"];
+            }),
+                d3.max(data, function (d) {
+                    return d["Happiness Score"];
+                })])
+            .range([margin.top + height, margin.top]);
+
+        let yAxis = d3.axisLeft()
+            .scale(y);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .call(yAxis);
+
+        // Show the main vertical line
+        svg
+            .selectAll("vertLines")
+            .data(sumstat)
+            .enter()
+            .append("line")
+            .attr("x1", function (d) {
+                return (x(d.key))
+            })
+            .attr("x2", function (d) {
+                return (x(d.key))
+            })
+            .attr("y1", function (d) {
+                return (y(d.value.min))
+            })
+            .attr("y2", function (d) {
+                return (y(d.value.max))
+            })
+            .attr("stroke", "black")
+            .style("width", 40);
+
+        // rectangle for the main box
+        let boxWidth = 50;
+        svg
+            .selectAll("boxes")
+            .data(sumstat)
+            .enter()
+            .append("rect")
+            .attr("x", function (d) {
+                return (x(d.key) - boxWidth / 2)
+            })
+            .attr("y", function (d) {
+                return (y(d.value.q3))
+            })
+            .attr("height", function (d) {
+                return (y(d.value.q1) - y(d.value.q3))
+            })
+            .attr("width", boxWidth)
+            .attr("stroke", "black")
+            .style("fill", function (d) {
+                return color(x(d.key))
+            });
+
+        // Show the median
+        svg
+            .selectAll("medianLines")
+            .data(sumstat)
+            .enter()
+            .append("line")
+            .attr("x1", function (d) {
+                return (x(d.key) - boxWidth / 2)
+            })
+            .attr("x2", function (d) {
+                return (x(d.key) + boxWidth / 2)
+            })
+            .attr("y1", function (d) {
+                return (y(d.value.median))
+            })
+            .attr("y2", function (d) {
+                return (y(d.value.median))
+            })
+            .attr("stroke", "black")
+            .style("width", 80);
+
+        // Add individual points with jitter
+        let jitterWidth = 50;
+        svg
+            .selectAll("indPoints")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                return (x(d["Region"]) - jitterWidth / 2 + Math.random() * jitterWidth)
+            })
+            .attr("cy", function (d) {
+                return (y(d["Happiness Score"]))
+            })
+            .attr("r", 3)
+            .style("fill", function (d) {
+                return (color(x(d["Region"])))
+            })
+            .attr("stroke", "white");
+
+        svg.append("text")
+            .attr("x", -height / 2)
+            .attr("y", 20)
+            .attr("transform", "rotate(-90)")
+            .style("text-anchor", "middle")
+            .text("Happiness Score");
+
+        let legend = d3.select("#legend").append("svg")
+            .attr("width", 250)
+            .attr("height", 500);
+
+        let size = 20;
+        legend.selectAll("mydots")
+            .data(regions)
+            .enter()
+            .append("rect")
+            .attr("x", 10)
+            .attr("y", function (d, i) {
+                return 100 + i * (size + 5)
+            }) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("width", size)
+            .attr("height", size)
+            .style("fill", function (d, i) {
+                return color(x(d))
+            });
+
+        // Add one dot in the legend for each name.
+        legend.selectAll("mylabels")
+            .data(regions)
+            .enter()
+            .append("text")
+            .attr("x", 10 + size * 1.2)
+            .attr("y", function (d, i) {
+                return 100 + i * (size + 5) + (size / 2)
+            }) // 100 is where the first dot appears. 25 is the distance between dots
+            .style("fill", function (d, i) {
+                return color(x(d))
+            })
+            .text(function (d) {
+                return d
+            })
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+
+    })
+
+
+</script>
+
+</body>
