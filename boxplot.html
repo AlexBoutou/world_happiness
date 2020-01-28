@@ -200,29 +200,28 @@
             .attr("height", 500);
 
         let size = 20;
-        legend.selectAll("mydots")
+        legend.selectAll("legend_dots")
             .data(regions)
             .enter()
             .append("rect")
             .attr("x", 10)
             .attr("y", function (d, i) {
                 return 100 + i * (size + 5)
-            }) // 100 is where the first dot appears. 25 is the distance between dots
+            })
             .attr("width", size)
             .attr("height", size)
             .style("fill", function (d, i) {
                 return color(x(d))
             });
 
-        // Add one dot in the legend for each name.
-        legend.selectAll("mylabels")
+        legend.selectAll("legend_labels")
             .data(regions)
             .enter()
             .append("text")
             .attr("x", 10 + size * 1.2)
             .attr("y", function (d, i) {
                 return 100 + i * (size + 5) + (size / 2)
-            }) // 100 is where the first dot appears. 25 is the distance between dots
+            })
             .style("fill", function (d, i) {
                 return color(x(d))
             })
