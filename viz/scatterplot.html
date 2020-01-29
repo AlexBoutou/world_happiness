@@ -43,7 +43,7 @@
         .attr("width", 700)
         .attr("height", 500);
 
-    d3.csv("2015.csv", function (data) {
+    d3.csv("../data/2015.csv", function (data) {
         let parseDate = d3.timeParse("%Y");
         console.log(data);
         let regions_list = [];
