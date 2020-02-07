@@ -100,6 +100,7 @@
             .style("stroke", "white")
             .style("stroke-width", 0.3)
             .on("mouseover", function (d) {
+                d3.selectAll("path").filter(function(e) {return d === e}).style("fill", "pink")
                 div.transition()
                     .duration(30)
                     .style("opacity", 1);
@@ -108,6 +109,11 @@
                     .style("top", (d3.event.pageY - 28) + "px")
             })
             .on("mouseout", function (d) {
+                d3.selectAll("path").filter(function(e) {return d===e}).style("fill", function() {if (d["Happiness Score"]) {
+                return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
+                  }
+                else {return "lightgrey"}
+            })
                 div.transition()
                     .duration(500)
                     .style("opacity", 0);
