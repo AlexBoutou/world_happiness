@@ -13648,7 +13648,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Democratic Republic of the Congo"
+        "name": "Congo (Kinshasa)"
       },
       "geometry": {
         "type": "Polygon",
@@ -14150,7 +14150,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Republic of the Congo"
+        "name": "Congo (Brazzaville)"
       },
       "geometry": {
         "type": "Polygon",
@@ -18030,7 +18030,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "England"
+        "name": "United Kingdom"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -37970,7 +37970,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Somaliland"
+        "name": "Somaliland region"
       },
       "geometry": {
         "type": "Polygon",
@@ -38238,7 +38238,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Republic of Serbia"
+        "name": "Serbia"
       },
       "geometry": {
         "type": "Polygon",
@@ -40734,7 +40734,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "United Republic of Tanzania"
+        "name": "Tanzania"
       },
       "geometry": {
         "type": "Polygon",
@@ -41570,7 +41570,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "USA"
+        "name": "United States"
       },
       "geometry": {
         "type": "MultiPolygon",

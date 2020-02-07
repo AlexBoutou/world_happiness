@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>world map</title>
     <style>
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 100px;
+            height: 18px;
+            padding: 2px;
+            font: 13px sans-serif;
+            background: none;
+            border: 2px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
     </style>
 <body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -19,7 +31,6 @@
     const margin = {top: 0, right: 0, bottom: 0, left: 20},
         width = 900 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
-
 
 
     let svg = d3.select("body")
@@ -60,6 +71,10 @@
             d["Happiness Score"] = populationById[d.properties.name]
         });
 
+        let div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
         svg.append("g")
             .attr("class", "countries")
             .selectAll("path")
@@ -67,23 +82,25 @@
             .enter().append("path")
             .attr("d", path)
             .style("fill", function (d) {
-                return color((d["Happiness Score"] - minScore)/(maxScore - minScore))
+                return color(1-(d["Happiness Score"] - minScore) / (maxScore - minScore))
             })
-            .style('stroke', 'white')
-            .style('stroke-width', 1.5)
-            .style("opacity", 0.8)
-            // tooltips
             .style("stroke", "white")
-            .style('stroke-width', 0.3);
+            .style("stroke-width", 0.3)
+            .on("mouseover", function (d) {
+                div.transition()
+                    .duration(30)
+                    .style("opacity", 1);
+                div.html(d.properties.name)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px")
+            })
+            .on("mouseout", function (d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
 
-        svg.append("path")
-            .datum(topojson.mesh(data.features, function (a, b) {
-                return a.id !== b.id;
-            }))
-            // .datum(topojson.mesh(data.features, function(a, b) { return a !== b; }))
-            .attr("class", "names")
-            .attr("d", path);
     }
 
 
