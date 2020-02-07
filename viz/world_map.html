@@ -20,7 +20,6 @@
         width = 900 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    const colors = ['#d4eac7', '#c6e3b5', '#b7dda2', '#a9d68f', '#9bcf7d', '#8cc86a', '#7ec157', '#77be4e', '#70ba45', '#65a83e', '#599537', '#4e8230', '#437029', '#385d22', '#2d4a1c', '#223815'];
 
 
     let svg = d3.select("body")
@@ -30,83 +29,19 @@
         .append('g')
         .attr('class', 'map');
 
-    let legend = svg.append('g')
-        .attr('transform', 'translate(40, 80)');
-    const legendCellSize = 20;
-
     let projection = d3.geoMercator()
         .scale(130)
         .translate([width / 2, height / 1.5]);
 
     let path = d3.geoPath().projection(projection);
 
+    let color = d3.scaleSequential(d3.interpolateGreens)
     queue()
         .defer(d3.json, "../data/world_countries.json")
         .defer(d3.csv, "../data/2015.csv")
-        .await(ready);
+        .await(world_map);
 
-
-    function getColorIndex(color) {
-        for (var i = 0; i < colors.length; i++) {
-            if (colors[i] === color) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    function addTooltip() {
-        var tooltip = svg.append("g") // Group for the whole tooltip
-            .attr("id", "tooltip")
-            .style("display", "none");
-
-        tooltip.append("polyline") // The rectangle containing the text, it is 210px width and 60 height
-            .attr("points", "0,0 210,0 210,60 0,60 0,0")
-            .style("fill", "#222b1d")
-            .style("stroke", "black")
-            .style("opacity", "0.9")
-            .style("stroke-width", "1")
-            .style("padding", "1em");
-
-        tooltip.append("line") // A line inserted between country name and score
-            .attr("x1", 40)
-            .attr("y1", 25)
-            .attr("x2", 160)
-            .attr("y2", 25)
-            .style("stroke", "#929292")
-            .style("stroke-width", "0.5")
-            .attr("transform", "translate(0, 5)");
-
-        var text = tooltip.append("text") // Text that will contain all tspan (used for multilines)
-            .style("font-size", "13px")
-            .style("fill", "#c1d3b8")
-            .attr("transform", "translate(0, 20)");
-
-        text.append("tspan") // Country name udpated by its id
-            .attr("x", 105) // ie, tooltip width / 2
-            .attr("y", 0)
-            .attr("id", "tooltip-country")
-            .attr("text-anchor", "middle")
-            .style("font-weight", "600")
-            .style("font-size", "16px");
-
-        text.append("tspan") // Fixed text
-            .attr("x", 105) // ie, tooltip width / 2
-            .attr("y", 30)
-            .attr("text-anchor", "middle")
-            .style("fill", "929292")
-            .text("Score : ");
-
-        text.append("tspan") // Score udpated by its id
-            .attr("id", "tooltip-score")
-            .style("fill", "#c1d3b8")
-            .style("font-weight", "bold");
-
-        return tooltip;
-    }
-
-    function ready(error, data, population) {
-        let tooltip = addTooltip();
+    function world_map(error, data, population) {
         let maxScore = 0;
         let minScore = 10;
 
@@ -125,9 +60,6 @@
             d["Happiness Score"] = populationById[d.properties.name]
         });
 
-        let quantile = d3.scaleQuantile().domain([minScore, maxScore])
-            .range(colors);
-
         svg.append("g")
             .attr("class", "countries")
             .selectAll("path")
@@ -135,36 +67,14 @@
             .enter().append("path")
             .attr("d", path)
             .style("fill", function (d) {
-                return quantile(d["Happiness Score"])
+                return color((d["Happiness Score"] - minScore)/(maxScore - minScore))
             })
             .style('stroke', 'white')
             .style('stroke-width', 1.5)
             .style("opacity", 0.8)
             // tooltips
             .style("stroke", "white")
-            .style('stroke-width', 0.3)
-            .on("mouseover", function (d) {
-                countryPath.style("fill", "#9966cc");
-                tooltip.style("display", null);
-                tooltip.select('#tooltip-country')
-                    .text(shortCountryName(e.frenchCountry));
-                tooltip.select('#tooltip-score')
-                    .text(e.score);
-                legend.select("#cursor")
-                    .attr('transform', 'translate(' + (legendCellSize + 5) + ', ' + (getColorIndex(quantile(+e.score)) * legendCellSize) + ')')
-                    .style("display", null);
-            })
-            .on("mouseout", function (d) {
-                countryPath.style("fill", function (d) {
-                    return quantile(+e.score);
-                });
-                tooltip.style("display", "none");
-                legend.select("#cursor").style("display", "none");
-            })
-            .on("mousemove", function (d) {
-                var mouse = d3.mouse(this);
-                tooltip.attr("transform", "translate(" + mouse[0] + "," + (mouse[1] - 75) + ")");
-            });
+            .style('stroke-width', 0.3);
 
 
         svg.append("path")
@@ -174,28 +84,6 @@
             // .datum(topojson.mesh(data.features, function(a, b) { return a !== b; }))
             .attr("class", "names")
             .attr("d", path);
-
-        legend.selectAll()
-            .data(d3.range(colors.length))
-            .enter().append('svg:rect')
-            .attr('height', legendCellSize + 'px')
-            .attr('width', legendCellSize + 'px')
-            .attr('x', 5)
-            .attr('y', function (d) {
-                return d * legendCellSize;
-            })
-            .style("fill", function (d) {
-                return colors[d];
-            });
-
-
-        let legendScale = d3.scaleLinear().domain([minScore, maxScore])
-            .range([0, colors.length * legendCellSize]);
-
-        legendAxis = legend.append("g")
-            .attr("class", "axis")
-            .call(d3.axisLeft(legendScale));
-
     }
 
 
