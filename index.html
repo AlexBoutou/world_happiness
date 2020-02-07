@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <title>Multiple Histograms</title>
     <style>
         body {
             margin: 0;
@@ -34,7 +36,7 @@
 </div>
 <script>
     let year = 2015;
-    let fileName = `../data/${year}.csv`;
+    let fileName = `./data/${year}.csv`;
     const margin = {top: 90, right: 10, bottom: 150, left: 50};
     const width = 600 - margin.left - margin.right,
         height = 600 - margin.top - margin.bottom;
@@ -200,3 +202,4 @@
 </script>
 
 </body>
+</html>
