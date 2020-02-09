@@ -29,8 +29,8 @@
 <script>
 
 
-    const margin = {top: 0, right: 0, bottom: 0, left: 20},
-        width = 900 - margin.left - margin.right,
+    const margin = {top: 0, right: 0, bottom: 0, left: 40},
+        width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
 
@@ -54,24 +54,24 @@
         .await(world_map);
 
 
-    function world_map(error, data, population) {
+    function world_map(error, countries, year) {
         let maxScore = 0;
         let minScore = 10;
 
-        let populationById = {};
+        let scores = {};
 
-        population.forEach(function (d) {
-            populationById[d["Country"]] = +d["Happiness Score"];
+        year.forEach(function (d) {
+            scores[d["Country"]] = +d["Happiness Score"];
         });
-        console.log(populationById)
-        data.features.forEach(function (d) {
-            if (populationById[d.properties.name] > maxScore) {
-                maxScore = populationById[d.properties.name];
+
+        countries.features.forEach(function (d) {
+            if (scores[d.properties.name] > maxScore) {
+                maxScore = scores[d.properties.name];
             }
-            if (populationById[d.properties.name] < minScore) {
-                minScore = populationById[d.properties.name];
+            if (scores[d.properties.name] < minScore) {
+                minScore = scores[d.properties.name];
             }
-            d["Happiness Score"] = populationById[d.properties.name]
+            d["Happiness Score"] = scores[d.properties.name]
         });
 
         let color = d3.scaleSequential(d3.interpolateGreens);
@@ -83,65 +83,83 @@
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-
-        svg.append("g")
-            .attr("class", "countries")
-            .attr("transform", "translate(50,0)")
-            .selectAll("path")
-            .data(data.features)
-            .enter().append("path")
-            .attr("d", path)
-            .style("fill", function (d) {
-                if (d["Happiness Score"]) {
-                return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
-                  }
-                else {return "lightgrey"}
-            })
-            .style("stroke", "white")
-            .style("stroke-width", 0.3)
-            .on("mouseover", function (d) {
-                d3.selectAll("path").filter(function(e) {return d === e}).style("fill", "pink")
-                div.transition()
-                    .duration(30)
-                    .style("opacity", 1);
-                div.html(d.properties.name)
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px")
-            })
-            .on("mouseout", function (d) {
-                d3.selectAll("path").filter(function(e) {return d===e}).style("fill", function() {if (d["Happiness Score"]) {
-                return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
-                  }
-                else {return "lightgrey"}
-            })
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
+        let legendSize = 30;
+        let legendWidth = 20;
 
         let legend = svg.append('g')
-            .attr('transform', 'translate(50, 0)');
+            .attr('transform', 'translate(50, 100)');
 
         legend.selectAll()
             .data(colors)
             .enter().append('svg:rect')
-            .attr('height', 30 + 'px')
-            .attr('width', 20 + 'px')
+            .attr('height', legendSize + 'px')
+            .attr('width', legendWidth + 'px')
             .attr('x', 5)
             .attr('y', function (d, i) {
-                return 100 + i * 30;
+                return i * legendSize;
             })
             .style("fill", function (d, i) {
                 return d;
             });
 
         let legendScale = d3.scaleLinear().domain([minScore, maxScore])
-            .range([100+colors.length * 30,100]);
-        console.log(minScore)
+            .range([colors.length * legendSize, 0]);
 
-        legendAxis = legend.append("g")
+        let legendAxis = legend.append("g")
             .attr("class", "axis")
             .call(d3.axisLeft(legendScale));
+
+        let curseur = legend.append('rect')
+            .style("fill", "purple")
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("x", 30)
+            .style("opacity", 0);
+
+        svg.append("g")
+            .attr("class", "countries")
+            .attr("transform", "translate(50,0)")
+            .selectAll("path")
+            .data(countries.features)
+            .enter().append("path")
+            .attr("d", path)
+            .style("fill", function (d) {
+                if (d["Happiness Score"]) {
+                    return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
+                } else {
+                    return "lightgrey"
+                }
+            })
+            .style("stroke", "white")
+            .style("stroke-width", 0.3)
+            .on("mouseover", function (d) {
+                if (d["Happiness Score"]) {
+                    curseur
+                        .style("opacity", 1)
+                        .attr('y', legendSize * 10 - 10 / 2 - ((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize);
+                    d3.selectAll("path").filter(function (e) {
+                        return d === e
+                    }).style("fill", "purple")
+                }
+                div.transition()
+                    .duration(30)
+                    .style("opacity", 1);
+                div.html(d.properties.name)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
+                if (d["Happiness Score"]) {
+                    curseur
+                        .style("opacity", 0);
+                    d3.selectAll("path").filter(function (e) {
+                        return d === e
+                    }).style("fill", color((d["Happiness Score"] - minScore) / (maxScore - minScore)))
+                }
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
     }
 
