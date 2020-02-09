@@ -121,11 +121,9 @@
             .attr("class", "axis")
             .call(d3.axisLeft(legendScale));
 
-        let curseur = legend.append('rect')
+        let curseur = legend.append('polyline')
             .style("fill", "orange")
-            .attr("width", 10)
-            .attr("height", 10)
-            .attr("x", 30)
+            .attr("points", (20+legendSize) + ", -10 " + (20 + legendSize) + "," + (legendSize -10) + " " + (20 + legendSize * 0.2) + "," + ((legendSize / 2) - 10))
             .style("opacity", 0);
 
         svg.append("g")
@@ -146,9 +144,10 @@
             .style("stroke-width", 0.3)
             .on("mouseover", function (d) {
                 if (d["Happiness Score"]) {
+                    let mouve = 285-((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize;
                     curseur
                         .style("opacity", 1)
-                        .attr('y', legendSize * 10 - 10 / 2 - ((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize);
+                        .attr("points", (20+legendWidth) + "," +(mouve+legendSize-5)+ " "+ (20+legendWidth) + "," + (mouve+5) + " " + (7+legendWidth) + "," + (legendSize/2+mouve));
                     d3.selectAll("path").filter(function (e) {
                         return d === e
                     }).style("fill", "orange")
