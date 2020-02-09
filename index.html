@@ -17,189 +17,165 @@
         div.tooltip {
             position: absolute;
             text-align: center;
-            width: 50px;
+            width: 100px;
             height: 18px;
             padding: 2px;
             font: 13px sans-serif;
-            background: white;
+            background: dimgrey;
             border: 2px;
             border-radius: 8px;
             pointer-events: none;
+            color: white;
         }
     </style>
 </head>
 
 <body>
-<div>
-    <svg id="graph" width=900 height=600></svg>
-    <svg id="legend" width=250 height=500></svg>
-</div>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/queue.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
 <script>
-    let year = 2015;
-    let fileName = `./data/${year}.csv`;
-    const margin = {top: 90, right: 10, bottom: 150, left: 50};
-    const width = 600 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
-
-    const svg = d3.select("#graph").append("svg")
-        .attr("width", 600)
-        .attr("height", 600);
 
 
-    //var new_columns = {"Year":"year", "Country":"country", "Region":"region", "Happiness Rank":"rank", "Happiness Score":"score", "Standard Error":"error", "Economy (GDP per Capita)":"gdp", "Family":"family", "Health (Life Expectancy)":"health", "Freedom":"freedom", "Trust (Government Corruption)":"trust", "Generosity":"generosity", "Dystopia Residual":"dystopia"};
+    const margin = {top: 0, right: 0, bottom: 0, left: 40},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
-    d3.csv(fileName, function (data) {
 
-        let parseDate = d3.timeParse("%Y");
-        let varToObserv = "Family";
-        let regions = [];
-        let noRegion = true;
-        let color = d3.scaleOrdinal(d3.schemeCategory20);
+    let svg = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append('g')
+        .attr('class', 'map');
 
-        const div = d3.select("body").append("div")
+    let projection = d3.geoMercator()
+        .scale(130)
+        .translate([width / 2, height / 1.5]);
+
+    let path = d3.geoPath().projection(projection);
+
+
+    queue()
+        .defer(d3.json, "./data/world_countries.json")
+        .defer(d3.csv, "./data/2015.csv")
+        .await(world_map);
+
+
+    function world_map(error, countries, year) {
+        let maxScore = 0;
+        let minScore = 10;
+
+        let scores = {};
+
+        year.forEach(function (d) {
+            scores[d["Country"]] = +d["Happiness Score"];
+        });
+
+        countries.features.forEach(function (d) {
+            if (scores[d.properties.name] > maxScore) {
+                maxScore = scores[d.properties.name];
+            }
+            if (scores[d.properties.name] < minScore) {
+                minScore = scores[d.properties.name];
+            }
+            d["Happiness Score"] = scores[d.properties.name]
+        });
+
+        let color = d3.scaleSequential(d3.interpolateBlues);
+        let colors = d3.range(10).map(function (d) {
+            return color(d / 10)
+        }).reverse();
+
+        let div = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        function histo(el, varToObserv, dim_width, dim_height, pos_x, pos_y, data) {
-            let average_scores = d3.nest() // nest function allows to group the calculation per level of a factor
-                .key(function (d) {
-                    return d["Region"];
-                })
-                .rollup(function (d) {
-                    return d3.mean(d.map(function (g) {
-                        return g[varToObserv];
-                    }).sort(d3.ascending));
-                })
-                .entries(data);
+        let legendSize = 30;
+        let legendWidth = 20;
 
-            if (noRegion) {
-                average_scores.forEach(function (d) {
-                    regions.push(d.key)
-                });
-                noRegion = false;
-            }
+        let legend = svg.append('g')
+            .attr('transform', 'translate(50, 100)');
 
+        legend.selectAll()
+            .data(colors)
+            .enter().append('svg:rect')
+            .attr('height', legendSize + 'px')
+            .attr('width', legendWidth + 'px')
+            .attr('x', 5)
+            .attr('y', function (d, i) {
+                return i * legendSize;
+            })
+            .style("fill", function (d, i) {
+                return d;
+            });
 
-            // Show the X scale
-            let x = d3.scaleBand()
-                .domain(regions)
-                .range([margin.left, margin.left + dim_width])
-                .paddingInner(.1)
-                .paddingOuter(.1);
+        let legendScale = d3.scaleLinear().domain([minScore, maxScore])
+            .range([colors.length * legendSize, 0]);
 
-            // Show the Y scale
-            let y = d3.scaleLinear()
-                .domain([0, 1.7])
-                .range([margin.top + dim_height, margin.top]);
+        let legendAxis = legend.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(legendScale));
 
-            el.append("g")
-                .attr("transform", "translate(" + pos_x + "," + (pos_y + dim_height + margin.top) + ")")
-                .call(d3.axisBottom(x).tickValues([]));
+        let curseur = legend.append('rect')
+            .style("fill", "orange")
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("x", 30)
+            .style("opacity", 0);
 
-            let yAxis = d3.axisLeft()
-                .scale(y);
-
-            el.append("g")
-                .attr("class", "y axis")
-                .attr("transform", "translate(" + (pos_x + margin.left) + "," + pos_y + ")")
-                .call(yAxis);
-
-            el.append("text")
-                .attr("y", pos_y + dim_height + margin.top + 20)
-                .attr("x", pos_x + (dim_width + margin.left) / 2 + 20)
-                .style("text-anchor", "middle")
-                .style("font-size", "12px")
-                .text(varToObserv);
-
-            var g = el.append("g")
-                .attr("transform", "translate(" + pos_x + "," + pos_y + ")")
-
-            g.selectAll("histogramme")
-                .data(average_scores)
-                .enter().append("rect")
-                .attr("class", "bar")
-                .attr("x", function (d) {
-                    return x(d.key);
-                })
-                .attr("y", function (d) {
-                    return y(d["value"]);
-                })
-                .attr("width", function (d, i) {
-                    return x.bandwidth();
-                })
-                .attr("height", function (d) {
-                    return dim_height + margin.top - y(d["value"])
-                })
-                .style("fill", function (d) {
-                    return color(d.key)
-                })
-                .on("mouseover", function (d) {
-                    div.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    div.html((Math.round(d.value * 1000)) / 1000)
-                        .style("left", (d3.event.pageX + 10) + "px")
-                        .style("top", (d3.event.pageY - 50) + "px");
-                })
-                .on("mouseout", function (d) {
-                    div.transition()
-                        .duration(500)
+        svg.append("g")
+            .attr("class", "countries")
+            .attr("transform", "translate(50,0)")
+            .selectAll("path")
+            .data(countries.features)
+            .enter().append("path")
+            .attr("d", path)
+            .style("fill", function (d) {
+                if (d["Happiness Score"]) {
+                    return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
+                } else {
+                    return "lightgrey"
+                }
+            })
+            .style("stroke", "white")
+            .style("stroke-width", 0.3)
+            .on("mouseover", function (d) {
+                if (d["Happiness Score"]) {
+                    curseur
+                        .style("opacity", 1)
+                        .attr('y', legendSize * 10 - 10 / 2 - ((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize);
+                    d3.selectAll("path").filter(function (e) {
+                        return d === e
+                    }).style("fill", "orange")
+                }
+                div.transition()
+                    .duration(30)
+                    .style("opacity", 1);
+                div.html(d.properties.name)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
+                if (d["Happiness Score"]) {
+                    curseur
                         .style("opacity", 0);
-                });
-        }
+                    d3.selectAll("path").filter(function (e) {
+                        return d === e
+                    }).style("fill", color((d["Happiness Score"] - minScore) / (maxScore - minScore)))
+                }
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
-        function plotLegend() {
-            let legend = d3.select("#legend").append("svg")
-                .attr("width", 250)
-                .attr("height", 500);
+    }
 
-            let size = 20;
-            legend.selectAll("legend_dots")
-                .data(regions)
-                .enter()
-                .append("rect")
-                .attr("x", 10)
-                .attr("y", function (d, i) {
-                    return 10 + i * (size + 5)
-                })
-                .attr("width", size)
-                .attr("height", size)
-                .style("fill", function (d, i) {
-                    return color(d)
-                });
 
-            legend.selectAll("legend_labels")
-                .data(regions)
-                .enter()
-                .append("text")
-                .attr("x", 10 + size * 1.2)
-                .attr("y", function (d, i) {
-                    return 10 + i * (size + 5) + (size / 2)
-                })
-                .style("fill", function (d, i) {
-                    return color(d)
-                })
-                .text(function (d) {
-                    return d
-                })
-                .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle");
-        }
-
-        let iMax = 3,
-            jMax = 2;
-        let matrixToPlot = Array(iMax).fill(Array(jMax));
-        let histoToPlot = ["Economy (GDP per Capita)", "Family", "Health (Life Expectancy)", "Freedom", "Trust (Government Corruption)", "Generosity"];
-        let i = 0,
-            j = 0;
-        for (i = 0; i < matrixToPlot.length; i++) {
-            for (j = 0; j < matrixToPlot[i].length; j++) {
-                histo(svg, histoToPlot.shift(), width / 3.5, height / 3.5, i / iMax * width, j / jMax * height, data)
-            }
-        }
-        plotLegend()
-    })
 </script>
-
 </body>
 </html>
