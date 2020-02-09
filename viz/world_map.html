@@ -2,8 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>world map</title>
+    <title>World Map</title>
     <style>
+        body {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
         div.tooltip {
             position: absolute;
             text-align: center;
@@ -18,6 +27,7 @@
             color: white;
         }
     </style>
+</head>
 <body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
@@ -49,8 +59,8 @@
 
 
     queue()
-        .defer(d3.json, "../data/world_countries.json")
-        .defer(d3.csv, "../data/2015.csv")
+        .defer(d3.json, "./data/world_countries.json")
+        .defer(d3.csv, "./data/2015.csv")
         .await(world_map);
 
 
@@ -74,7 +84,7 @@
             d["Happiness Score"] = scores[d.properties.name]
         });
 
-        let color = d3.scaleSequential(d3.interpolateGreens);
+        let color = d3.scaleSequential(d3.interpolateBlues);
         let colors = d3.range(10).map(function (d) {
             return color(d / 10)
         }).reverse();
@@ -110,7 +120,7 @@
             .call(d3.axisLeft(legendScale));
 
         let curseur = legend.append('rect')
-            .style("fill", "purple")
+            .style("fill", "orange")
             .attr("width", 10)
             .attr("height", 10)
             .attr("x", 30)
@@ -139,7 +149,7 @@
                         .attr('y', legendSize * 10 - 10 / 2 - ((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize);
                     d3.selectAll("path").filter(function (e) {
                         return d === e
-                    }).style("fill", "purple")
+                    }).style("fill", "orange")
                 }
                 div.transition()
                     .duration(30)
