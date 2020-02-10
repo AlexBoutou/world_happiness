@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Indicateurs du bonheur par région</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 50px;
+            height: 18px;
+            padding: 2px;
+            font: 13px sans-serif;
+            background: white;
+            border: 2px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <svg id="graph" width=600 height=600></svg>
+    <svg id="legend" width=250 height=500></svg>
+</div>
+<script>
+    let pos_x = 50;
+    let pos_y = 50;
+
+    let year = 2015;
+    let fileName = `../data/${year}.csv`;
+    let indic = ["Economy (GDP per Capita)", "Family", "Health (Life Expectancy)", "Freedom", "Trust (Government Corruption)", "Generosity", "Dystopia Residual"]
+
+
+    const margin = {top: 90, right: 10, bottom: 150, left: 50};
+    const width = 400 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    const svg = d3.select("#graph").append("svg")
+        .attr("width", 500)
+        .attr("height", 500);
+
+    let y = d3.scaleLinear()
+        .rangeRound([height, 0])
+        .nice();
+
+    let x = d3.scaleBand()
+        .rangeRound([0, width])
+        .paddingInner(0.05)
+        .align(0.1);
+
+    let color = d3.scaleOrdinal(d3.schemeCategory20);
+
+
+    d3.csv(fileName, function (data) {
+
+        let parseDate = d3.timeParse("%Y");
+        let data_stack=[]
+        let data_nest = d3.nest() // nest function allows to group the calculation per level of a factor
+            .key(function (d) {
+                return d["Region"];
+            })
+            //.key(function(d) { return d["Economy (GDP per Capita)"]; })
+            .rollup(function (d) {
+                let indicators = {};
+                console.log(d)
+                indic.forEach(function (indicName) {
+                    indicators[indicName] = d3.mean(d.map(function (g) {
+                        return g[indicName]
+                    }));
+                });
+                indicators["reg"] = d[0]["Region"]
+                data_stack.push(indicators)
+                return indicators
+            })
+            .entries(data);
+
+        let regions = data_nest.map(function (d) {
+            return d.key;
+        });
+
+        const div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        let layers = d3.stack().keys(indic)(data_stack);
+
+        let max = d3.max(layers[layers.length - 1], function (d) {
+            return d[1];
+        });
+
+        y.domain([0, max]);
+        x.domain(regions);
+
+        console.log(layers)
+
+        svg.append("g").selectAll("g")
+            .data(layers)
+            .enter().append("g")
+            .style("fill", function (d) {
+                return color(d.key);
+            })
+            .selectAll("rect")
+            .data(function (d) {
+                return d;
+            })
+            .enter().append("rect")
+            .attr("x", function (d, i) {
+                return x(d.data.reg);
+            })
+            .attr("y", function (d) {
+                return y(d[1]);
+            })
+            .attr("height", function (d) {
+                return y(d[0]) - y(d[1]);
+            })
+            .attr("width", x.bandwidth());
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + (0) + ", 0)")
+            .call(d3.axisLeft().scale(y))
+
+    })
+
+
+</script>
+</body>
+</html>
