@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <title>Multiple Histograms</title>
+    <title>World Map</title>
     <style>
         body {
             margin: 0;
@@ -31,13 +31,18 @@
 </head>
 
 <body>
+<div class="rangeslider">
+    <input type="range" min="2015" max="2019" value="2015"
+           class="myslider" id="sliderRange">
+    <p>Value: <span id="demo"></span></p>
+</div>
+
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="https://d3js.org/d3-color.v1.min.js"></script>
 <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
 <script>
 
 
@@ -59,20 +64,65 @@
 
     let path = d3.geoPath().projection(projection);
 
+    var rangeslider = document.getElementById("sliderRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = rangeslider.value;
 
+    rangeslider.oninput = function () {
+        output.innerHTML = this.value;
+        year = this.value;
+
+        queue()
+            .defer(d3.json, "./data/world_countries.json")
+            .defer(d3.csv, `./data/${year}.csv`)
+            .await(update_map);
+    };
+
+    let year = output.innerHTML;
     queue()
         .defer(d3.json, "./data/world_countries.json")
-        .defer(d3.csv, "./data/2015.csv")
+        .defer(d3.csv, `./data/${year}.csv`)
         .await(world_map);
 
-
-    function world_map(error, countries, year) {
+    function update_map(error, countries, data) {
+        console.log("UPDATE MAP WITH " + year + " DATA");
         let maxScore = 0;
         let minScore = 10;
 
         let scores = {};
 
-        year.forEach(function (d) {
+        data.forEach(function (d) {
+            scores[d["Country"]] = +d["Happiness Score"];
+        });
+        let color = d3.scaleSequential(d3.interpolateBlues);
+
+        Object.keys(scores).forEach(function (country) {
+            svg.selectAll("path").data(countries.features)
+                .filter(function (e) {
+                    return e.properties.name === country;
+                })
+                .transition()
+                .style("fill", function (d) {
+                    console.log(country);
+                    console.log(d);
+                    d["Happiness Score"] = scores[country];
+                    if (d["Happiness Score"]) {
+                        return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
+                    } else {
+                        return "lightgrey"
+                    }
+                })
+        });
+    }
+
+    function world_map(error, countries, data) {
+        console.log("BUILD INIT MAP FOR YEAR " + year);
+        let maxScore = 0;
+        let minScore = 10;
+
+        let scores = {};
+
+        data.forEach(function (d) {
             scores[d["Country"]] = +d["Happiness Score"];
         });
 
@@ -123,7 +173,7 @@
 
         let curseur = legend.append('polyline')
             .style("fill", "orange")
-            .attr("points", (20+legendSize) + ", -10 " + (20 + legendSize) + "," + (legendSize -10) + " " + (20 + legendSize * 0.2) + "," + ((legendSize / 2) - 10))
+            .attr("points", (20 + legendSize) + ", -10 " + (20 + legendSize) + "," + (legendSize - 10) + " " + (20 + legendSize * 0.2) + "," + ((legendSize / 2) - 10))
             .style("opacity", 0);
 
         svg.append("g")
@@ -144,10 +194,10 @@
             .style("stroke-width", 0.3)
             .on("mouseover", function (d) {
                 if (d["Happiness Score"]) {
-                    let mouve = 285-((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize;
+                    let mouve = 285 - ((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize;
                     curseur
                         .style("opacity", 1)
-                        .attr("points", (20+legendWidth) + "," +(mouve+legendSize-5)+ " "+ (20+legendWidth) + "," + (mouve+5) + " " + (7+legendWidth) + "," + (legendSize/2+mouve));
+                        .attr("points", (20 + legendWidth) + "," + (mouve + legendSize - 5) + " " + (20 + legendWidth) + "," + (mouve + 5) + " " + (7 + legendWidth) + "," + (legendSize / 2 + mouve));
                     d3.selectAll("path").filter(function (e) {
                         return d === e
                     }).style("fill", "orange")
