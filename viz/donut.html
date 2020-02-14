@@ -9,6 +9,7 @@
 <body>
 <svg id="donut_chart"></svg>
 <svg id="legend"></svg>
+<svg id="name"></svg>
 <script>
     let margin = {top: 10, right: 10, bottom: 10, left: 10},
         width = 800 - margin.left - margin.right,
@@ -20,9 +21,11 @@
             data.forEach(function (d) {
                 if (d["Country"] === pays) {
                     country = d;
-                    console.log(d);
                 }
             });
+
+            let rank = country["Happiness Rank"];
+            let score = parseFloat(country["Happiness Score"]).toFixed(2);
 
             delete country["Year"];
             delete country[" Whisker High"];
@@ -30,15 +33,11 @@
             delete country["Upper Confidence Interval"];
             delete country["Lower Confidence Interval"];
             delete country["Country"];
-            let rank = country["Happiness Rank"];
             delete country["Happiness Rank"];
-            let score = parseFloat(country["Happiness Score"]).toFixed(2);
             delete country["Happiness Score"];
             delete country["Standard Error"];
             delete country["Region"];
-            if (year == "2017") {
-                delete country["Dystopia Residual"];
-            }
+            delete country["Dystopia Residual"];
 
             let donut = [];
 
@@ -130,13 +129,13 @@
                 .attr("class", "inner-circle")
                 .attr("fill", "#36454f")
                 .text(function (d) {
-                    return "Rang : " + rank;
+                    return "Rank : " + rank;
                 });
 
-
+// Affiche la légende du donut
             let legend = d3.select("#legend").append("svg")
                 .attr("width", 250)
-                .attr("height", 500);
+                .attr("height", 200);
 
             let labels = [];
             donut.forEach(function (d) {
@@ -177,35 +176,35 @@
                 .style("alignment-baseline", "middle");
 
         });
-        };
+    };
 
-        plot_donut("2015", "France");
+    plot_donut("2015", "France");
 
-// Wrap function to handle labels with longer text
-        function wrap(text, width) {
-            text.each(function () {
-                let text = d3.select(this),
-                    words = text.text().split(/\s+/).reverse(),
-                    word,
-                    line = [],
-                    lineNumber = 0,
-                    lineHeight = 1.1, // ems
-                    y = text.attr("y"),
-                    dy = parseFloat(text.attr("dy")),
-                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-                console.log("tspan: " + tspan);
-                while (word = words.pop()) {
-                    line.push(word);
+    // Wrap function to handle labels with longer text
+    function wrap(text, width) {
+        text.each(function () {
+            let text = d3.select(this),
+                words = text.text().split(/\s+/).reverse(),
+                word,
+                line = [],
+                lineNumber = 0,
+                lineHeight = 1.1, // ems
+                y = text.attr("y"),
+                dy = parseFloat(text.attr("dy")),
+                tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+            console.log("tspan: " + tspan);
+            while (word = words.pop()) {
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > 90) {
+                    line.pop();
                     tspan.text(line.join(" "));
-                    if (tspan.node().getComputedTextLength() > 90) {
-                        line.pop();
-                        tspan.text(line.join(" "));
-                        line = [word];
-                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-                    }
+                    line = [word];
+                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
                 }
-            });
-        };
+            }
+        });
+    };
 
 </script>
 </body>
