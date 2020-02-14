@@ -27,15 +27,93 @@
             pointer-events: none;
             color: white;
         }
+
+        header {
+            display: block;
+            position: relative;
+            text-align: left;
+            margin: 0px;
+            padding: 10px;
+            border: 1px solid #e7e2d7;
+            border-top-left-radius: 0.8em;
+            border-top-right-radius: 0.8em;
+            border-bottom-left-radius: 0.0em;
+            border-bottom-right-radius: 0.0em;
+
+        }
+
+        nav {
+            display: block;
+            float: left;
+            position: relative;
+            width: 800px;
+            text-align: left;
+            padding: 10px;
+            margin: 0px;
+            border-bottom: 1px solid #cccccc;
+            border-left: 1px solid #cccccc;
+            border-right: 1px solid #cccccc;
+            padding-bottom: 32767px;
+            margin-bottom: -32767px;
+        }
+
+        article {
+            position: relative;
+            width: 420px;
+            float: right;
+            text-align: left;
+            top: 0px;
+            margin: 0px;
+            left: 0px;
+            padding: 10px;
+            color: #000000;
+            text-align: justify;
+            border-bottom: 1px solid #cccccc;
+            border-right: 1px solid #cccccc;
+            padding-bottom: 32767px;
+            margin-bottom: -32767px;
+        }
+
+        footer {
+            display: block;
+            clear: both !important;
+            margin: 0px;
+            padding: 10px;
+            border: 1px solid #e7e2d7;
+            border-bottom-left-radius: .8em;
+            border-bottom-right-radius: .8em;
+            border-top-right-radius: .0em;
+            border-top-left-radius: .0em;
+        }
+
+        #container {
+            overflow: hidden;
+            clear: both;
+        }
+
     </style>
 </head>
 
 <body>
-<div class="rangeslider">
-    <input type="range" min="2015" max="2019" value="2015"
-           class="myslider" id="sliderRange">
-    <p>Value: <span id="demo"></span></p>
+<header>
+    <h1>Happiness in the World</h1>
+</header>
+<div id="container">
+    <article>
+        Country
+    </article>
+    <nav>
+        <svg id="graph" width=960 height=500></svg>
+    </nav>
 </div>
+<footer>
+    <div class="rangeslider">
+        <input type="range" min="2015" max="2019" value="2015"
+               class="myslider" id="sliderRange">
+        <p>Value: <span id="demo"></span></p>
+    </div>
+</footer>
+
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
@@ -43,15 +121,16 @@
 <script src="https://d3js.org/d3-color.v1.min.js"></script>
 <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
 <script>
 
 
     const margin = {top: 0, right: 0, bottom: 0, left: 40},
-        width = 960 - margin.left - margin.right,
+        width = 800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
 
-    let svg = d3.select("body")
+    let svg = d3.select("#graph")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -59,7 +138,7 @@
         .attr('class', 'map');
 
     let projection = d3.geoMercator()
-        .scale(130)
+        .scale(100)
         .translate([width / 2, height / 1.5]);
 
     let path = d3.geoPath().projection(projection);
