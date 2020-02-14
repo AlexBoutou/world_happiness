@@ -71,11 +71,11 @@
     rangeslider.oninput = function () {
         output.innerHTML = this.value;
         year = this.value;
-
+        svg.selectAll("*").remove();
         queue()
             .defer(d3.json, "./data/world_countries.json")
             .defer(d3.csv, `./data/${year}.csv`)
-            .await(update_map);
+            .await(world_map);
     };
 
     let year = output.innerHTML;
