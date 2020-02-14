@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Donut pie</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+</head>
+<body>
+<svg id="donut_chart"></svg>
+<svg id="legend"></svg>
+<script>
+    let margin = {top: 10, right: 10, bottom: 10, left: 10},
+        width = 800 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    function plot_donut(year, pays) {
+        let country = {};
+        d3.csv("../data/" + year + ".csv", function (data) {
+            data.forEach(function (d) {
+                if (d["Country"] === pays) {
+                    country = d;
+                    console.log(d);
+                }
+            });
+
+            delete country["Year"];
+            delete country[" Whisker High"];
+            delete country[" Whisker Low"];
+            delete country["Upper Confidence Interval"];
+            delete country["Lower Confidence Interval"];
+            delete country["Country"];
+            let rank = country["Happiness Rank"];
+            delete country["Happiness Rank"];
+            let score = parseFloat(country["Happiness Score"]).toFixed(2);
+            delete country["Happiness Score"];
+            delete country["Standard Error"];
+            delete country["Region"];
+            if (year == "2017") {
+                delete country["Dystopia Residual"];
+            }
+
+            let donut = [];
+
+            Object.keys(country).forEach(function (label) {
+                donut.push({"label": label, "value": +parseFloat(country[label])})
+            });
+
+// Define size & radius of donut pie chart
+            let width = 450,
+                height = 450,
+                radius = Math.min(width, height) / 2;
+
+// Define arc colours
+            let colour = d3.scaleOrdinal(d3.schemeCategory20);
+
+// Define arc ranges
+            let arcText = d3.scaleOrdinal()
+                .range([0, width]);
+
+// Determine size of arcs
+            let arc = d3.arc()
+                .innerRadius(radius - 130)
+                .outerRadius(radius - 10);
+
+// Create the donut pie chart layout
+            let pie = d3.pie()
+                .value(function (d) {
+                    return d["value"];
+                })
+                .sort(null);
+
+// Append SVG attributes and append g to the SVG
+            let svg = d3.select("#donut_chart")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + radius + "," + radius + ")");
+
+// Define inner circle
+            svg.append("circle")
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("r", 100)
+                .attr("fill", "#fff");
+
+
+// Calculate SVG paths and fill in the colours
+            let g = svg.selectAll(".arc")
+                .data(pie(donut))
+                .enter().append("g")
+                .attr("class", "arc");
+
+
+            // Append the path to each g
+            g.append("path")
+                .attr("d", arc)
+                .attr("fill", function (d, i) {
+                    return colour(i);
+                });
+
+            // Append text labels to each arc
+            g.append("text")
+                .attr("transform", function (d) {
+                    return "translate(" + arc.centroid(d) + ")";
+                })
+                .attr("dy", ".35em")
+                .style("text-anchor", "middle")
+                .attr("fill", "#fff")
+                .text(function (d, i) {
+                    //return donut[i].label;
+                    return (d["value"] / score * 100).toFixed(1) + " %";
+                });
+
+            g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
+
+// Append text to the inner circle
+            svg.append("text")
+                .attr("dy", "-0.5em")
+                .style("text-anchor", "middle")
+                .attr("class", "inner-circle")
+                .attr("fill", "#36454f")
+                .text(function (d) {
+                    return "Score : " + score;
+                });
+
+            svg.append("text")
+                .attr("dy", "1.0em")
+                .style("text-anchor", "middle")
+                .attr("class", "inner-circle")
+                .attr("fill", "#36454f")
+                .text(function (d) {
+                    return "Rang : " + rank;
+                });
+
+
+            let legend = d3.select("#legend").append("svg")
+                .attr("width", 250)
+                .attr("height", 500);
+
+            let labels = [];
+            donut.forEach(function (d) {
+                labels.push(d["label"]);
+            });
+
+            let size = 15;
+
+            legend.selectAll("legend_dots")
+                .data(labels)
+                .enter()
+                .append("rect")
+                .attr("x", 10)
+                .attr("y", function (d, i) {
+                    return 10 + i * (size + 5)
+                })
+                .attr("width", size)
+                .attr("height", size)
+                .style("fill", function (d, i) {
+                    return colour(i);
+                });
+
+            legend.selectAll("legend_labels")
+                .data(labels)
+                .enter()
+                .append("text")
+                .attr("x", 10 + size * 1.2)
+                .attr("y", function (d, i) {
+                    return 10 + i * (size + 5) + (size / 2)
+                })
+                .style("fill", function (d, i) {
+                    return colour(i)
+                })
+                .text(function (d) {
+                    return d
+                })
+                .attr("text-anchor", "left")
+                .style("alignment-baseline", "middle");
+
+        });
+        };
+
+        plot_donut("2015", "France");
+
+// Wrap function to handle labels with longer text
+        function wrap(text, width) {
+            text.each(function () {
+                let text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                console.log("tspan: " + tspan);
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > 90) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        };
+
+</script>
+</body>
+</html>
