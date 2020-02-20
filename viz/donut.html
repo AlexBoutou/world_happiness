@@ -9,13 +9,21 @@
 <body>
 <svg id="donut_chart"></svg>
 <svg id="legend"></svg>
-<svg id="name"></svg>
-<script>
-    let margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = 800 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
 
-    function plot_donut(year, pays) {
+<script>
+    // Define size & radius of donut pie chart
+    let donut_width = 300,
+        donut_height = 300,
+        donut_radius = Math.min(donut_width, donut_height) / 2;
+
+    // Append SVG attributes and append g to the SVG
+    let svgdonut = d3.select("#donut_chart")
+        .attr("width", donut_width)
+        .attr("height", donut_height)
+        .append("g")
+        .attr("transform", "translate(" + donut_radius + "," + donut_radius + ")");
+
+    function plot_donut(year, pays, el, width, height, radius) {
         let country = {};
         d3.csv("../data/" + year + ".csv", function (data) {
             data.forEach(function (d) {
@@ -27,31 +35,18 @@
             let rank = country["Happiness Rank"];
             let score = parseFloat(country["Happiness Score"]).toFixed(2);
 
-            delete country["Year"];
-            delete country[" Whisker High"];
-            delete country[" Whisker Low"];
-            delete country["Upper Confidence Interval"];
-            delete country["Lower Confidence Interval"];
-            delete country["Country"];
-            delete country["Happiness Rank"];
-            delete country["Happiness Score"];
-            delete country["Standard Error"];
-            delete country["Region"];
-            delete country["Dystopia Residual"];
+            let liste = ["Year", " Whisker High", " Whisker Low", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
+            liste.forEach(function (d) {
+                delete country[d]
+            });
 
             let donut = [];
-
             Object.keys(country).forEach(function (label) {
                 donut.push({"label": label, "value": +parseFloat(country[label])})
             });
 
-// Define size & radius of donut pie chart
-            let width = 450,
-                height = 450,
-                radius = Math.min(width, height) / 2;
-
 // Define arc colours
-            let colour = d3.scaleOrdinal(d3.schemeCategory20);
+            let colour = ["#E38F73", "#839A88", "#DDABA0", "#CCD3C1", "#FA7268", "#B76E5D", "#BF8788"];//d3.scaleOrdinal(d3.schemeCategory20);
 
 // Define arc ranges
             let arcText = d3.scaleOrdinal()
@@ -69,15 +64,9 @@
                 })
                 .sort(null);
 
-// Append SVG attributes and append g to the SVG
-            let svg = d3.select("#donut_chart")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform", "translate(" + radius + "," + radius + ")");
 
 // Define inner circle
-            svg.append("circle")
+            el.append("circle")
                 .attr("cx", 0)
                 .attr("cy", 0)
                 .attr("r", 100)
@@ -85,7 +74,7 @@
 
 
 // Calculate SVG paths and fill in the colours
-            let g = svg.selectAll(".arc")
+            let g = el.selectAll(".arc")
                 .data(pie(donut))
                 .enter().append("g")
                 .attr("class", "arc");
@@ -96,7 +85,7 @@
                 .attr("d", arc)
                 .attr("r", 100)
                 .attr("fill", function (d, i) {
-                    return colour(i);
+                    return colour[i];
                 });
 
             // Append text labels to each arc
@@ -109,13 +98,12 @@
                 .style("font-size", 12)
                 .attr("fill", "#fff")
                 .text(function (d, i) {
-                    //return donut[i].label;
                     return (d["value"] / score * 100).toFixed(1) + " %";
                 });
 
 
 // Append text to the inner circle
-            svg.append("text")
+            el.append("text")
                 .attr("dy", "-0.5em")
                 .style("text-anchor", "middle")
                 .attr("class", "inner-circle")
@@ -125,7 +113,7 @@
                     return "Score : " + score;
                 });
 
-            svg.append("text")
+            el.append("text")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "middle")
                 .attr("font-size", 12)
@@ -158,7 +146,7 @@
                 .attr("width", size)
                 .attr("height", size)
                 .style("fill", function (d, i) {
-                    return colour(i);
+                    return colour[i];
                 });
 
             legend.selectAll("legend_labels")
@@ -171,7 +159,7 @@
                     return 10 + i * (size + 5) + (size / 2)
                 })
                 .style("fill", function (d, i) {
-                    return colour(i)
+                    return colour[i]
                 })
                 .text(function (d) {
                     return d
@@ -180,9 +168,9 @@
                 .style("alignment-baseline", "middle");
 
         });
-    };
+    }
 
-    plot_donut("2015", "France");
+    plot_donut("2015", "France",svgdonut, donut_width, donut_height, donut_radius);
 
 </script>
 </body>
