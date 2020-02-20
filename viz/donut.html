@@ -59,7 +59,7 @@
 
 // Determine size of arcs
             let arc = d3.arc()
-                .innerRadius(radius - 130)
+                .innerRadius(radius - 100)
                 .outerRadius(radius - 10);
 
 // Create the donut pie chart layout
@@ -94,6 +94,7 @@
             // Append the path to each g
             g.append("path")
                 .attr("d", arc)
+                .attr("r", 100)
                 .attr("fill", function (d, i) {
                     return colour(i);
                 });
@@ -103,8 +104,9 @@
                 .attr("transform", function (d) {
                     return "translate(" + arc.centroid(d) + ")";
                 })
-                .attr("dy", ".35em")
+                .attr("dy", ".20em")
                 .style("text-anchor", "middle")
+                .style("font-size", 12)
                 .attr("fill", "#fff")
                 .text(function (d, i) {
                     //return donut[i].label;
@@ -118,6 +120,7 @@
                 .attr("dy", "-0.5em")
                 .style("text-anchor", "middle")
                 .attr("class", "inner-circle")
+                .attr("font-size", 12)
                 .attr("fill", "#36454f")
                 .text(function (d) {
                     return "Score : " + score;
@@ -126,6 +129,7 @@
             svg.append("text")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "middle")
+                .attr("font-size", 12)
                 .attr("class", "inner-circle")
                 .attr("fill", "#36454f")
                 .text(function (d) {
@@ -162,6 +166,7 @@
                 .data(labels)
                 .enter()
                 .append("text")
+                .attr("font-size", 12)
                 .attr("x", 10 + size * 1.2)
                 .attr("y", function (d, i) {
                     return 10 + i * (size + 5) + (size / 2)
