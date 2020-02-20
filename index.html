@@ -100,7 +100,6 @@
 </header>
 <div id="container">
     <article>
-        France
         <svg id="donut_chart"></svg>
         <svg id="legend"></svg>
     </article>
@@ -151,22 +150,22 @@
 
     rangeslider.oninput = function () {
         output.innerHTML = this.value;
-        yearSlider = this.value;
+        year = this.value;
         svg.selectAll("*").remove();
         queue()
             .defer(d3.json, "./data/world_countries.json")
-            .defer(d3.csv, `./data/${yearSlider}.csv`)
+            .defer(d3.csv, `./data/${year}.csv`)
             .await(world_map);
     };
 
-    let yearSlider = output.innerHTML;
+    let year = output.innerHTML;
     queue()
         .defer(d3.json, "./data/world_countries.json")
-        .defer(d3.csv, `./data/${yearSlider}.csv`)
+        .defer(d3.csv, `./data/${year}.csv`)
         .await(world_map);
 
     function update_map(error, countries, data) {
-        console.log("UPDATE MAP WITH " + yearSlider + " DATA");
+        console.log("UPDATE MAP WITH " + year + " DATA");
         let maxScore = 0;
         let minScore = 10;
 
@@ -197,7 +196,7 @@
     }
 
     function world_map(error, countries, data) {
-        console.log("BUILD INIT MAP FOR YEAR " + yearSlider);
+        console.log("BUILD INIT MAP FOR YEAR " + year);
         let maxScore = 0;
         let minScore = 10;
 
@@ -214,7 +213,7 @@
             if (scores[d.properties.name] < minScore) {
                 minScore = scores[d.properties.name];
             }
-            d["Happiness Score " + yearSlider] = scores[d.properties.name]
+            d["Happiness Score"] = scores[d.properties.name]
         });
 
         let color = d3.scaleSequential(d3.interpolateBlues);
@@ -265,8 +264,8 @@
             .enter().append("path")
             .attr("d", path)
             .style("fill", function (d) {
-                if (d["Happiness Score " + yearSlider]) {
-                    return color((d["Happiness Score " + yearSlider] - minScore) / (maxScore - minScore))
+                if (d["Happiness Score"]) {
+                    return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
                 } else {
                     return "lightgrey"
                 }
@@ -349,7 +348,7 @@
 
 // Determine size of arcs
             let arc = d3.arc()
-                .innerRadius(radius - 130)
+                .innerRadius(radius - 100)
                 .outerRadius(radius - 10);
 
 // Create the donut pie chart layout
@@ -370,7 +369,7 @@
             svg.append("circle")
                 .attr("cx", 0)
                 .attr("cy", 0)
-                .attr("r", 180)
+                .attr("r", 100)
                 .attr("fill", "#fff");
 
 
@@ -384,6 +383,7 @@
             // Append the path to each g
             g.append("path")
                 .attr("d", arc)
+                .attr("r", 100)
                 .attr("fill", function (d, i) {
                     return colour(i);
                 });
@@ -393,21 +393,21 @@
                 .attr("transform", function (d) {
                     return "translate(" + arc.centroid(d) + ")";
                 })
-                .attr("dy", ".35em")
+                .attr("dy", ".20em")
                 .style("text-anchor", "middle")
+                .style("font-size", 12)
                 .attr("fill", "#fff")
                 .text(function (d, i) {
-                    //return donut[i].label;
                     return (d["value"] / score * 100).toFixed(1) + " %";
                 });
 
-           // g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
 
 // Append text to the inner circle
             svg.append("text")
                 .attr("dy", "-0.5em")
                 .style("text-anchor", "middle")
                 .attr("class", "inner-circle")
+                .attr("font-size", 12)
                 .attr("fill", "#36454f")
                 .text(function (d) {
                     return "Score : " + score;
@@ -416,6 +416,7 @@
             svg.append("text")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "middle")
+                .attr("font-size", 12)
                 .attr("class", "inner-circle")
                 .attr("fill", "#36454f")
                 .text(function (d) {
@@ -424,8 +425,8 @@
 
 // Affiche la légende du donut
             let legend = d3.select("#legend").append("svg")
-                .attr("width", 250)
-                .attr("height", 200);
+                .attr("width", 150)
+                .attr("height", 150);
 
             let labels = [];
             donut.forEach(function (d) {
@@ -452,6 +453,7 @@
                 .data(labels)
                 .enter()
                 .append("text")
+                .attr("font-size", 12)
                 .attr("x", 10 + size * 1.2)
                 .attr("y", function (d, i) {
                     return 10 + i * (size + 5) + (size / 2)
@@ -466,7 +468,7 @@
                 .style("alignment-baseline", "middle");
 
         });
-    };
+    }
 
     plot_donut("2015", "France");
 
