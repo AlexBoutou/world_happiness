@@ -113,7 +113,6 @@
                     return (d["value"] / score * 100).toFixed(1) + " %";
                 });
 
-            g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
 
 // Append text to the inner circle
             svg.append("text")
@@ -184,32 +183,6 @@
     };
 
     plot_donut("2015", "France");
-
-    // Wrap function to handle labels with longer text
-    function wrap(text, width) {
-        text.each(function () {
-            let text = d3.select(this),
-                words = text.text().split(/\s+/).reverse(),
-                word,
-                line = [],
-                lineNumber = 0,
-                lineHeight = 1.1, // ems
-                y = text.attr("y"),
-                dy = parseFloat(text.attr("dy")),
-                tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-            console.log("tspan: " + tspan);
-            while (word = words.pop()) {
-                line.push(word);
-                tspan.text(line.join(" "));
-                if (tspan.node().getComputedTextLength() > 90) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-                    line = [word];
-                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-                }
-            }
-        });
-    };
 
 </script>
 </body>
