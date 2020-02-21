@@ -381,7 +381,7 @@
             let rank = country["Happiness Rank"];
             let score = parseFloat(country["Happiness Score"]).toFixed(2);
 
-            let liste = ["Year", " Whisker High", " Whisker Low", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
+            let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
             liste.forEach(function (d) {
                 delete country[d]
             });
