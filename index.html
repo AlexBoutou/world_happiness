@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/earth-globe-europe-africa_1f30d.png">
+    <link rel="icon"
+          href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/earth-globe-europe-africa_1f30d.png">
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <title>WRDHAP</title>
     <style>
@@ -33,11 +34,11 @@
             height: 65px;
             display: block;
             position: center;
-            text-align: left;
-            color: #ffffff;
+            text-align: center;
+            color: #fa7268;
+            border-bottom: 1px solid #cccccc;
+
             padding: 10px;
-            background-color: lightgrey;
-            border: 2px solid #e7e2d7;
 
         }
 
@@ -299,7 +300,7 @@
                 div.transition()
                     .duration(30)
                     .style("opacity", 1);
-                div.html(d.properties.name+" </br>"+parseFloat(d.properties["HS " + year]).toFixed(2))
+                div.html(d.properties.name + " </br>" + parseFloat(d.properties["HS " + year]).toFixed(2))
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -361,7 +362,7 @@
             });
 
 // Define arc colours
-            let colour = ["#E38F73", "#839A88", "#fa7268", "#69b3a2","#B76E5D", "#CCD3C1"];//d3.scaleOrdinal(d3.schemeCategory20);
+            let colour = ["#E38F73", "#839A88", "#fa7268", "#69b3a2", "#B76E5D", "#CCD3C1"];//d3.scaleOrdinal(d3.schemeCategory20);
 
 // Define arc ranges
             let arcText = d3.scaleOrdinal()
