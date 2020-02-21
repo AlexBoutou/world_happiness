@@ -32,15 +32,10 @@
             display: block;
             position: relative;
             text-align: left;
-            margin: 0px;
             color: #e7e2d7;
             padding: 10px;
             background-color: #3945af;
-            border: 1px solid #e7e2d7;
-            border-top-left-radius: 0.8em;
-            border-top-right-radius: 0.8em;
-            border-bottom-left-radius: 0.0em;
-            border-bottom-right-radius: 0.0em;
+            border: 2px solid #e7e2d7;
 
         }
 
@@ -193,11 +188,13 @@
     let output = document.getElementById("demo");
     output.innerHTML = rangeslider.value;
 
+    let DonutCountry = "France";
 
     rangeslider.oninput = function () {
         output.innerHTML = this.value;
         year = this.value;
-        update_map()
+        update_map();
+        update_donut(DonutCountry, svgdonut, donut_width, donut_height, donut_radius);
     };
 
     let year = output.innerHTML;
@@ -318,9 +315,9 @@
                     .style("opacity", 0);
             })
             .on("click", function (d) {
-                svgdonut.selectAll("*").remove();
-                plot_donut(year, d.properties.name, svgdonut, donut_width, donut_height, donut_radius)
-                legend_donut.selectAll("*").remove();
+                DonutCountry = d.properties.name;
+                svgdonut.selectAll("*").remove()
+                plot_donut("2015", DonutCountry, svgdonut, donut_width, donut_height, donut_radius);
             });
 
     }
@@ -338,7 +335,7 @@
         .append("g")
         .attr("transform", "translate(" + donut_radius + "," + donut_radius + ")");
 
-    function plot_donut(year, pays, el, width, height, radius) {
+    function plot_donut(pays, el, width, height, radius) {
         document.getElementById("DonutCountry").innerHTML = pays;
 
         let country = {};
@@ -381,13 +378,6 @@
                 })
                 .sort(null);
 
-// Define inner circle
-            el.append("circle")
-                .attr("cx", 0)
-                .attr("cy", 0)
-                .attr("r", 100)
-                .attr("fill", "#fff");
-
 
 // Calculate SVG paths and fill in the colours
             let g = el.selectAll(".arc")
@@ -417,6 +407,9 @@
                     return (d["value"] / score * 100).toFixed(1) + " %";
                 });
 
+            const elements = document.getElementsByClassName("inner-circle");
+
+            while (elements.length > 0) elements[0].remove();
 
 // Append text to the inner circle
             el.append("text")
@@ -483,7 +476,87 @@
         });
     }
 
-    plot_donut("2015", "France", svgdonut, donut_width, donut_height, donut_radius);
+    function update_donut(pays, el, width, height, radius) {
+
+        console.log("Updating donut for year " + year);
+        let country = {};
+        d3.csv("./data/" + year + ".csv", function (data) {
+            data.forEach(function (d) {
+                if (d["Country"] === pays) {
+                    country = d;
+                }
+            });
+
+            let rank = country["Happiness Rank"];
+            let score = parseFloat(country["Happiness Score"]).toFixed(2);
+
+            let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
+            liste.forEach(function (d) {
+                delete country[d]
+            });
+
+            let donut = [];
+            Object.keys(country).forEach(function (label) {
+                donut.push({"label": label, "value": +parseFloat(country[label])})
+            });
+
+
+            let pie_update = d3.pie()
+                .value(function (d) {
+                    return d["value"];
+                }).sort(null)(donut);
+
+            path = d3.select("#donut_chart")
+                .selectAll("path")
+                .data(pie_update); // Compute the new angles
+            let arc_update = d3.arc()
+                .innerRadius(radius - 100)
+                .outerRadius(radius - 10);
+            path.transition().duration(500).attr("d", arc_update); // redrawing the path with a smooth transition
+
+            svgdonut.selectAll("g").selectAll("text").remove();
+
+            const elements = document.getElementsByClassName("inner-circle");
+
+            while (elements.length > 0) elements[0].remove();
+
+            svgdonut.selectAll("g").append("text")
+                .attr("transform", function (d) {
+                    return "translate(" + arc_update.centroid(d) + ")";
+                })
+                .attr("dy", ".20em")
+                .style("text-anchor", "middle")
+                .style("font-size", 12)
+                .attr("fill", "#fff")
+                .text(function (d, i) {
+                    return (d["value"] / score * 100).toFixed(1) + " %";
+                });
+
+            el.append("text")
+                .attr("dy", "-0.5em")
+                .style("text-anchor", "middle")
+                .attr("class", "inner-circle")
+                .attr("font-size", 12)
+                .attr("fill", "#36454f")
+                .text(function (d) {
+                    return "Score : " + score;
+                });
+
+            el.append("text")
+                .attr("dy", "1.0em")
+                .style("text-anchor", "middle")
+                .attr("font-size", 12)
+                .attr("class", "inner-circle")
+                .attr("fill", "#36454f")
+                .text(function (d) {
+                    return "Rank : " + rank;
+                });
+
+
+        })
+    }
+
+    plot_donut("France", svgdonut, donut_width, donut_height, donut_radius);
 
 </script>
 </body>
