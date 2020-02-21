@@ -346,7 +346,8 @@
 
             let rank = country["Happiness Rank"];
             let score = parseFloat(country["Happiness Score"]).toFixed(2);
-
+            let somme = parseFloat(country["Economy (GDP per Capita)"]) + parseFloat(country["Family"]) + parseFloat(country["Health (Life Expectancy)"]) + parseFloat(country["Freedom"]) + parseFloat(country["Trust (Government Corruption)"]) + parseFloat(country["Generosity"]);
+            
             let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
             liste.forEach(function (d) {
                 delete country[d]
@@ -402,7 +403,8 @@
                 .style("font-size", 12)
                 .attr("fill", "#fff")
                 .text(function (d, i) {
-                    return (d["value"] / score * 100).toFixed(1) + " %";
+                    return (d["value"] / somme * 100).toFixed(1) + " %";
+
                 });
 
             const elements = document.getElementsByClassName("inner-circle");
