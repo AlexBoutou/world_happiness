@@ -4,12 +4,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Afghanistan",
-        "HS 2015": 3.575,
-        "HS 2016": 3.36,
-        "HS 2017": 3.7939999103546103,
-        "HS 2018": 3.6319999999999997,
-        "HS 2019": 3.2030000000000003
+        "name": "Afghanistan"
       },
       "geometry": {
         "type": "Polygon",
@@ -299,11 +294,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Angola",
-        "HS 2015": 4.033,
-        "HS 2016": 3.866,
-        "HS 2017": 3.79500007629395,
-        "HS 2018": 3.795
+        "name": "Angola"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -623,12 +614,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Albania",
-        "HS 2015": 4.959,
-        "HS 2016": 4.655,
-        "HS 2017": 4.64400005340576,
-        "HS 2018": 4.586,
-        "HS 2019": 4.718999999999999
+        "name": "Albania"
       },
       "geometry": {
         "type": "Polygon",
@@ -730,12 +716,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "United Arab Emirates",
-        "HS 2015": 6.901,
-        "HS 2016": 6.5729999999999995,
-        "HS 2017": 6.6479997634887695,
-        "HS 2018": 6.774,
-        "HS 2019": 6.825
+        "name": "United Arab Emirates"
       },
       "geometry": {
         "type": "Polygon",
@@ -837,12 +818,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Argentina",
-        "HS 2015": 6.574,
-        "HS 2016": 6.65,
-        "HS 2017": 6.59899997711182,
-        "HS 2018": 6.388,
-        "HS 2019": 6.086
+        "name": "Argentina"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1346,12 +1322,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Armenia",
-        "HS 2015": 4.35,
-        "HS 2016": 4.36,
-        "HS 2017": 4.37599992752075,
-        "HS 2018": 4.321000000000001,
-        "HS 2019": 4.559
+        "name": "Armenia"
       },
       "geometry": {
         "type": "Polygon",
@@ -4171,12 +4142,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Australia",
-        "HS 2015": 7.284,
-        "HS 2016": 7.313,
-        "HS 2017": 7.28399991989136,
-        "HS 2018": 7.272,
-        "HS 2019": 7.228
+        "name": "Australia"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5160,12 +5126,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Austria",
-        "HS 2015": 7.2,
-        "HS 2016": 7.119,
-        "HS 2017": 7.00600004196167,
-        "HS 2018": 7.138999999999999,
-        "HS 2019": 7.246
+        "name": "Austria"
       },
       "geometry": {
         "type": "Polygon",
@@ -5327,12 +5288,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Azerbaijan",
-        "HS 2015": 5.212000000000001,
-        "HS 2016": 5.291,
-        "HS 2017": 5.234000205993651,
-        "HS 2018": 5.2010000000000005,
-        "HS 2019": 5.207999999999999
+        "name": "Azerbaijan"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5528,12 +5484,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Burundi",
-        "HS 2015": 2.905,
-        "HS 2016": 2.905,
-        "HS 2017": 2.90499997138977,
-        "HS 2018": 2.905,
-        "HS 2019": 3.775
+        "name": "Burundi"
       },
       "geometry": {
         "type": "Polygon",
@@ -5599,12 +5550,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Belgium",
-        "HS 2015": 6.937,
-        "HS 2016": 6.928999999999999,
-        "HS 2017": 6.89099979400635,
-        "HS 2018": 6.9270000000000005,
-        "HS 2019": 6.922999999999999
+        "name": "Belgium"
       },
       "geometry": {
         "type": "Polygon",
@@ -5678,12 +5624,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Benin",
-        "HS 2015": 3.34,
-        "HS 2016": 3.484,
-        "HS 2017": 3.65700006484985,
-        "HS 2018": 4.141,
-        "HS 2019": 4.883
+        "name": "Benin"
       },
       "geometry": {
         "type": "Polygon",
@@ -5797,12 +5738,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Burkina Faso",
-        "HS 2015": 3.5869999999999997,
-        "HS 2016": 3.739,
-        "HS 2017": 4.03200006484985,
-        "HS 2018": 4.4239999999999995,
-        "HS 2019": 4.587
+        "name": "Burkina Faso"
       },
       "geometry": {
         "type": "Polygon",
@@ -5972,12 +5908,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Bangladesh",
-        "HS 2015": 4.694,
-        "HS 2016": 4.643,
-        "HS 2017": 4.60799980163574,
-        "HS 2018": 4.5,
-        "HS 2019": 4.456
+        "name": "Bangladesh"
       },
       "geometry": {
         "type": "Polygon",
@@ -6135,12 +6066,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Bulgaria",
-        "HS 2015": 4.218,
-        "HS 2016": 4.217,
-        "HS 2017": 4.71400022506714,
-        "HS 2018": 4.933,
-        "HS 2019": 5.011
+        "name": "Bulgaria"
       },
       "geometry": {
         "type": "Polygon",
@@ -6374,12 +6300,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Bosnia and Herzegovina",
-        "HS 2015": 4.949,
-        "HS 2016": 5.162999999999999,
-        "HS 2017": 5.18200016021729,
-        "HS 2018": 5.129,
-        "HS 2019": 5.386
+        "name": "Bosnia and Herzegovina"
       },
       "geometry": {
         "type": "Polygon",
@@ -6481,12 +6402,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Belarus",
-        "HS 2015": 5.813,
-        "HS 2016": 5.8020000000000005,
-        "HS 2017": 5.5689997673034695,
-        "HS 2018": 5.483,
-        "HS 2019": 5.3229999999999995
+        "name": "Belarus"
       },
       "geometry": {
         "type": "Polygon",
@@ -6676,10 +6592,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Belize",
-        "HS 2016": 5.956,
-        "HS 2017": 5.955999851226809,
-        "HS 2018": 5.956
+        "name": "Belize"
       },
       "geometry": {
         "type": "Polygon",
@@ -6773,12 +6686,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Bolivia",
-        "HS 2015": 5.89,
-        "HS 2016": 5.822,
-        "HS 2017": 5.82299995422363,
-        "HS 2018": 5.752000000000001,
-        "HS 2019": 5.779
+        "name": "Bolivia"
       },
       "geometry": {
         "type": "Polygon",
@@ -7032,12 +6940,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Brazil",
-        "HS 2015": 6.983,
-        "HS 2016": 6.952000000000001,
-        "HS 2017": 6.6350002288818395,
-        "HS 2018": 6.419,
-        "HS 2019": 6.3
+        "name": "Brazil"
       },
       "geometry": {
         "type": "Polygon",
@@ -7909,12 +7812,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Bhutan",
-        "HS 2015": 5.252999999999999,
-        "HS 2016": 5.196000000000001,
-        "HS 2017": 5.01100015640259,
-        "HS 2018": 5.082,
-        "HS 2019": 5.082
+        "name": "Bhutan"
       },
       "geometry": {
         "type": "Polygon",
@@ -7980,12 +7878,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Botswana",
-        "HS 2015": 4.332,
-        "HS 2016": 3.9739999999999998,
-        "HS 2017": 3.7660000324249303,
-        "HS 2018": 3.59,
-        "HS 2019": 3.488
+        "name": "Botswana"
       },
       "geometry": {
         "type": "Polygon",
@@ -8159,11 +8052,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Central African Republic",
-        "HS 2015": 3.678,
-        "HS 2017": 2.69300007820129,
-        "HS 2018": 3.083,
-        "HS 2019": 3.083
+        "name": "Central African Republic"
       },
       "geometry": {
         "type": "Polygon",
@@ -8425,12 +8314,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Canada",
-        "HS 2015": 7.4270000000000005,
-        "HS 2016": 7.404,
-        "HS 2017": 7.31599998474121,
-        "HS 2018": 7.327999999999999,
-        "HS 2019": 7.278
+        "name": "Canada"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11742,12 +11626,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Switzerland",
-        "HS 2015": 7.587000000000001,
-        "HS 2016": 7.5089999999999995,
-        "HS 2017": 7.49399995803833,
-        "HS 2018": 7.487,
-        "HS 2019": 7.48
+        "name": "Switzerland"
       },
       "geometry": {
         "type": "Polygon",
@@ -11857,12 +11736,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Chile",
-        "HS 2015": 6.67,
-        "HS 2016": 6.705,
-        "HS 2017": 6.65199995040894,
-        "HS 2018": 6.476,
-        "HS 2019": 6.444
+        "name": "Chile"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12338,12 +12212,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "China",
-        "HS 2015": 5.14,
-        "HS 2016": 5.245,
-        "HS 2017": 5.2729997634887695,
-        "HS 2018": 5.246,
-        "HS 2019": 5.191
+        "name": "China"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13323,12 +13192,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ivory Coast",
-        "HS 2015": 3.655,
-        "HS 2016": 3.9160000000000004,
-        "HS 2017": 4.17999982833862,
-        "HS 2018": 4.671,
-        "HS 2019": 4.944
+        "name": "Ivory Coast"
       },
       "geometry": {
         "type": "Polygon",
@@ -13526,12 +13390,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Cameroon",
-        "HS 2015": 4.252,
-        "HS 2016": 4.513,
-        "HS 2017": 4.69500017166138,
-        "HS 2018": 4.975,
-        "HS 2019": 5.044
+        "name": "Cameroon"
       },
       "geometry": {
         "type": "Polygon",
@@ -13789,12 +13648,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Congo (Kinshasa)",
-        "HS 2015": 4.5169999999999995,
-        "HS 2016": 4.272,
-        "HS 2017": 4.2800002098083505,
-        "HS 2018": 4.245,
-        "HS 2019": 4.418
+        "name": "Congo (Kinshasa)"
       },
       "geometry": {
         "type": "Polygon",
@@ -14296,12 +14150,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Congo (Brazzaville)",
-        "HS 2015": 3.989,
-        "HS 2016": 4.236000000000001,
-        "HS 2017": 4.29099988937378,
-        "HS 2018": 4.559,
-        "HS 2019": 4.812
+        "name": "Congo (Brazzaville)"
       },
       "geometry": {
         "type": "Polygon",
@@ -14511,12 +14360,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Colombia",
-        "HS 2015": 6.477,
-        "HS 2016": 6.481,
-        "HS 2017": 6.35699987411499,
-        "HS 2018": 6.26,
-        "HS 2019": 6.125
+        "name": "Colombia"
       },
       "geometry": {
         "type": "Polygon",
@@ -14930,12 +14774,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Costa Rica",
-        "HS 2015": 7.226,
-        "HS 2016": 7.087000000000001,
-        "HS 2017": 7.0789999961853,
-        "HS 2018": 7.072,
-        "HS 2019": 7.167000000000001
+        "name": "Costa Rica"
       },
       "geometry": {
         "type": "Polygon",
@@ -15275,9 +15114,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Northern Cyprus",
-        "HS 2018": 5.835,
-        "HS 2019": 5.718
+        "name": "Northern Cyprus"
       },
       "geometry": {
         "type": "Polygon",
@@ -15355,12 +15192,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Cyprus",
-        "HS 2015": 5.689,
-        "HS 2016": 5.546,
-        "HS 2017": 5.62099981307983,
-        "HS 2018": 5.7620000000000005,
-        "HS 2019": 6.046
+        "name": "Cyprus"
       },
       "geometry": {
         "type": "Polygon",
@@ -15434,12 +15266,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Czech Republic",
-        "HS 2015": 6.505,
-        "HS 2016": 6.596,
-        "HS 2017": 6.60900020599365,
-        "HS 2018": 6.711,
-        "HS 2019": 6.852
+        "name": "Czech Republic"
       },
       "geometry": {
         "type": "Polygon",
@@ -15593,12 +15420,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Germany",
-        "HS 2015": 6.75,
-        "HS 2016": 6.994,
-        "HS 2017": 6.9510002136230495,
-        "HS 2018": 6.965,
-        "HS 2019": 6.985
+        "name": "Germany"
       },
       "geometry": {
         "type": "Polygon",
@@ -15844,8 +15666,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Djibouti",
-        "HS 2015": 4.369
+        "name": "Djibouti"
       },
       "geometry": {
         "type": "Polygon",
@@ -15919,12 +15740,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Denmark",
-        "HS 2015": 7.527,
-        "HS 2016": 7.526,
-        "HS 2017": 7.52199983596802,
-        "HS 2018": 7.555,
-        "HS 2019": 7.6
+        "name": "Denmark"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16040,12 +15856,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Dominican Republic",
-        "HS 2015": 4.885,
-        "HS 2016": 5.155,
-        "HS 2017": 5.230000019073491,
-        "HS 2018": 5.3020000000000005,
-        "HS 2019": 5.425
+        "name": "Dominican Republic"
       },
       "geometry": {
         "type": "Polygon",
@@ -16163,12 +15974,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Algeria",
-        "HS 2015": 5.605,
-        "HS 2016": 6.355,
-        "HS 2017": 5.872000217437741,
-        "HS 2018": 5.295,
-        "HS 2019": 5.211
+        "name": "Algeria"
       },
       "geometry": {
         "type": "Polygon",
@@ -16430,12 +16236,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ecuador",
-        "HS 2015": 5.975,
-        "HS 2016": 5.976,
-        "HS 2017": 6.00799989700317,
-        "HS 2018": 5.973,
-        "HS 2019": 6.028
+        "name": "Ecuador"
       },
       "geometry": {
         "type": "Polygon",
@@ -16581,12 +16382,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Egypt",
-        "HS 2015": 4.194,
-        "HS 2016": 4.362,
-        "HS 2017": 4.7350001335144,
-        "HS 2018": 4.419,
-        "HS 2019": 4.166
+        "name": "Egypt"
       },
       "geometry": {
         "type": "Polygon",
@@ -16894,12 +16690,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Spain",
-        "HS 2015": 6.329,
-        "HS 2016": 6.361000000000001,
-        "HS 2017": 6.40299987792969,
-        "HS 2018": 6.31,
-        "HS 2019": 6.354
+        "name": "Spain"
       },
       "geometry": {
         "type": "Polygon",
@@ -17117,12 +16908,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Estonia",
-        "HS 2015": 5.428999999999999,
-        "HS 2016": 5.517,
-        "HS 2017": 5.61100006103516,
-        "HS 2018": 5.739,
-        "HS 2019": 5.893
+        "name": "Estonia"
       },
       "geometry": {
         "type": "Polygon",
@@ -17204,12 +16990,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ethiopia",
-        "HS 2015": 4.512,
-        "HS 2016": 4.508,
-        "HS 2017": 4.46000003814697,
-        "HS 2018": 4.35,
-        "HS 2019": 4.2860000000000005
+        "name": "Ethiopia"
       },
       "geometry": {
         "type": "Polygon",
@@ -17459,12 +17240,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Finland",
-        "HS 2015": 7.406000000000001,
-        "HS 2016": 7.412999999999999,
-        "HS 2017": 7.468999862670901,
-        "HS 2018": 7.632000000000001,
-        "HS 2019": 7.769
+        "name": "Finland"
       },
       "geometry": {
         "type": "Polygon",
@@ -17796,12 +17572,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "France",
-        "HS 2015": 6.575,
-        "HS 2016": 6.478,
-        "HS 2017": 6.44199991226196,
-        "HS 2018": 6.489,
-        "HS 2019": 6.5920000000000005
+        "name": "France"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18121,12 +17892,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Gabon",
-        "HS 2015": 3.8960000000000004,
-        "HS 2016": 4.121,
-        "HS 2017": 4.46500015258789,
-        "HS 2018": 4.758,
-        "HS 2019": 4.7989999999999995
+        "name": "Gabon"
       },
       "geometry": {
         "type": "Polygon",
@@ -18264,12 +18030,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "United Kingdom",
-        "HS 2015": 6.867000000000001,
-        "HS 2016": 6.725,
-        "HS 2017": 6.71400022506714,
-        "HS 2018": 7.19,
-        "HS 2019": 7.053999999999999
+        "name": "United Kingdom"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18513,12 +18274,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Georgia",
-        "HS 2015": 4.297,
-        "HS 2016": 4.252,
-        "HS 2017": 4.28599977493286,
-        "HS 2018": 4.34,
-        "HS 2019": 4.519
+        "name": "Georgia"
       },
       "geometry": {
         "type": "Polygon",
@@ -18628,12 +18384,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ghana",
-        "HS 2015": 4.633,
-        "HS 2016": 4.276,
-        "HS 2017": 4.11999988555908,
-        "HS 2018": 4.657,
-        "HS 2019": 4.996
+        "name": "Ghana"
       },
       "geometry": {
         "type": "Polygon",
@@ -18747,12 +18498,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Guinea",
-        "HS 2015": 3.656,
-        "HS 2016": 3.6069999999999998,
-        "HS 2017": 3.50699996948242,
-        "HS 2018": 3.964,
-        "HS 2019": 4.534
+        "name": "Guinea"
       },
       "geometry": {
         "type": "Polygon",
@@ -19046,8 +18792,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Gambia",
-        "HS 2019": 4.516
+        "name": "Gambia"
       },
       "geometry": {
         "type": "Polygon",
@@ -19257,12 +19002,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Greece",
-        "HS 2015": 4.857,
-        "HS 2016": 5.033,
-        "HS 2017": 5.2270002365112305,
-        "HS 2018": 5.358,
-        "HS 2019": 5.287000000000001
+        "name": "Greece"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20040,12 +19780,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Guatemala",
-        "HS 2015": 6.122999999999999,
-        "HS 2016": 6.324,
-        "HS 2017": 6.4539999961853,
-        "HS 2018": 6.382000000000001,
-        "HS 2019": 6.436
+        "name": "Guatemala"
       },
       "geometry": {
         "type": "Polygon",
@@ -20373,12 +20108,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Honduras",
-        "HS 2015": 4.788,
-        "HS 2016": 4.871,
-        "HS 2017": 5.1810002326965305,
-        "HS 2018": 5.504,
-        "HS 2019": 5.86
+        "name": "Honduras"
       },
       "geometry": {
         "type": "Polygon",
@@ -20620,12 +20350,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Croatia",
-        "HS 2015": 5.7589999999999995,
-        "HS 2016": 5.4879999999999995,
-        "HS 2017": 5.2930002212524405,
-        "HS 2018": 5.321000000000001,
-        "HS 2019": 5.432
+        "name": "Croatia"
       },
       "geometry": {
         "type": "Polygon",
@@ -20807,12 +20532,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Haiti",
-        "HS 2015": 4.518,
-        "HS 2016": 4.0280000000000005,
-        "HS 2017": 3.6029999256133998,
-        "HS 2018": 3.582,
-        "HS 2019": 3.597
+        "name": "Haiti"
       },
       "geometry": {
         "type": "Polygon",
@@ -20910,12 +20630,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Hungary",
-        "HS 2015": 4.8,
-        "HS 2016": 5.145,
-        "HS 2017": 5.32399988174438,
-        "HS 2018": 5.62,
-        "HS 2019": 5.757999999999999
+        "name": "Hungary"
       },
       "geometry": {
         "type": "Polygon",
@@ -21053,12 +20768,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Indonesia",
-        "HS 2015": 5.399,
-        "HS 2016": 5.314,
-        "HS 2017": 5.26200008392334,
-        "HS 2018": 5.093,
-        "HS 2019": 5.192
+        "name": "Indonesia"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22122,12 +21832,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "India",
-        "HS 2015": 4.565,
-        "HS 2016": 4.404,
-        "HS 2017": 4.31500005722046,
-        "HS 2018": 4.19,
-        "HS 2019": 4.015
+        "name": "India"
       },
       "geometry": {
         "type": "Polygon",
@@ -22685,12 +22390,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ireland",
-        "HS 2015": 6.94,
-        "HS 2016": 6.907,
-        "HS 2017": 6.9770002365112305,
-        "HS 2018": 6.977,
-        "HS 2019": 7.021
+        "name": "Ireland"
       },
       "geometry": {
         "type": "Polygon",
@@ -22756,12 +22456,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Iran",
-        "HS 2015": 4.686,
-        "HS 2016": 4.813,
-        "HS 2017": 4.69199991226196,
-        "HS 2018": 4.707,
-        "HS 2019": 4.548
+        "name": "Iran"
       },
       "geometry": {
         "type": "Polygon",
@@ -23075,12 +22770,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Iraq",
-        "HS 2015": 4.677,
-        "HS 2016": 4.575,
-        "HS 2017": 4.49700021743774,
-        "HS 2018": 4.456,
-        "HS 2019": 4.437
+        "name": "Iraq"
       },
       "geometry": {
         "type": "Polygon",
@@ -23214,12 +22904,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Iceland",
-        "HS 2015": 7.561,
-        "HS 2016": 7.501,
-        "HS 2017": 7.50400018692017,
-        "HS 2018": 7.495,
-        "HS 2019": 7.494
+        "name": "Iceland"
       },
       "geometry": {
         "type": "Polygon",
@@ -23313,12 +22998,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Israel",
-        "HS 2015": 7.278,
-        "HS 2016": 7.267,
-        "HS 2017": 7.212999820709231,
-        "HS 2018": 6.814,
-        "HS 2019": 7.138999999999999
+        "name": "Israel"
       },
       "geometry": {
         "type": "Polygon",
@@ -23424,12 +23104,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Italy",
-        "HS 2015": 5.9479999999999995,
-        "HS 2016": 5.977,
-        "HS 2017": 5.96400022506714,
-        "HS 2018": 6.0,
-        "HS 2019": 6.223
+        "name": "Italy"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23801,12 +23476,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Jamaica",
-        "HS 2015": 5.709,
-        "HS 2016": 5.51,
-        "HS 2017": 5.31099987030029,
-        "HS 2018": 5.89,
-        "HS 2019": 5.89
+        "name": "Jamaica"
       },
       "geometry": {
         "type": "Polygon",
@@ -23864,12 +23534,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Jordan",
-        "HS 2015": 5.192,
-        "HS 2016": 5.303,
-        "HS 2017": 5.33599996566772,
-        "HS 2018": 5.1610000000000005,
-        "HS 2019": 4.906000000000001
+        "name": "Jordan"
       },
       "geometry": {
         "type": "Polygon",
@@ -23959,12 +23624,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Japan",
-        "HS 2015": 5.987,
-        "HS 2016": 5.921,
-        "HS 2017": 5.92000007629395,
-        "HS 2018": 5.915,
-        "HS 2019": 5.886
+        "name": "Japan"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24248,12 +23908,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Kazakhstan",
-        "HS 2015": 5.855,
-        "HS 2016": 5.919,
-        "HS 2017": 5.8189997673034695,
-        "HS 2018": 5.79,
-        "HS 2019": 5.809
+        "name": "Kazakhstan"
       },
       "geometry": {
         "type": "Polygon",
@@ -24715,12 +24370,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Kenya",
-        "HS 2015": 4.419,
-        "HS 2016": 4.356,
-        "HS 2017": 4.55299997329712,
-        "HS 2018": 4.41,
-        "HS 2019": 4.5089999999999995
+        "name": "Kenya"
       },
       "geometry": {
         "type": "Polygon",
@@ -24882,12 +24532,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Kyrgyzstan",
-        "HS 2015": 5.2860000000000005,
-        "HS 2016": 5.185,
-        "HS 2017": 5.0040001869201705,
-        "HS 2018": 5.131,
-        "HS 2019": 5.261
+        "name": "Kyrgyzstan"
       },
       "geometry": {
         "type": "Polygon",
@@ -25041,12 +24686,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Cambodia",
-        "HS 2015": 3.819,
-        "HS 2016": 3.907,
-        "HS 2017": 4.1680002212524405,
-        "HS 2018": 4.433,
-        "HS 2019": 4.7
+        "name": "Cambodia"
       },
       "geometry": {
         "type": "Polygon",
@@ -25128,12 +24768,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "South Korea",
-        "HS 2015": 5.984,
-        "HS 2016": 5.835,
-        "HS 2017": 5.837999820709231,
-        "HS 2018": 5.875,
-        "HS 2019": 5.895
+        "name": "South Korea"
       },
       "geometry": {
         "type": "Polygon",
@@ -25223,12 +24858,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Kosovo",
-        "HS 2015": 5.5889999999999995,
-        "HS 2016": 5.401,
-        "HS 2017": 5.27899980545044,
-        "HS 2018": 5.662000000000001,
-        "HS 2019": 6.1
+        "name": "Kosovo"
       },
       "geometry": {
         "type": "Polygon",
@@ -25326,12 +24956,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Kuwait",
-        "HS 2015": 6.295,
-        "HS 2016": 6.239,
-        "HS 2017": 6.10500001907349,
-        "HS 2018": 6.082999999999999,
-        "HS 2019": 6.021
+        "name": "Kuwait"
       },
       "geometry": {
         "type": "Polygon",
@@ -25381,11 +25006,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Laos",
-        "HS 2015": 4.876,
-        "HS 2016": 4.876,
-        "HS 2018": 4.623,
-        "HS 2019": 4.796
+        "name": "Laos"
       },
       "geometry": {
         "type": "Polygon",
@@ -25547,12 +25168,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Lebanon",
-        "HS 2015": 4.8389999999999995,
-        "HS 2016": 5.129,
-        "HS 2017": 5.22499990463257,
-        "HS 2018": 5.358,
-        "HS 2019": 5.197
+        "name": "Lebanon"
       },
       "geometry": {
         "type": "Polygon",
@@ -25610,12 +25226,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Liberia",
-        "HS 2015": 4.571000000000001,
-        "HS 2016": 3.622,
-        "HS 2017": 3.5329999923706095,
-        "HS 2018": 3.495,
-        "HS 2019": 3.975
+        "name": "Liberia"
       },
       "geometry": {
         "type": "Polygon",
@@ -25737,12 +25348,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Libya",
-        "HS 2015": 5.754,
-        "HS 2016": 5.615,
-        "HS 2017": 5.525000095367429,
-        "HS 2018": 5.566,
-        "HS 2019": 5.525
+        "name": "Libya"
       },
       "geometry": {
         "type": "Polygon",
@@ -25980,12 +25586,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Sri Lanka",
-        "HS 2015": 4.271,
-        "HS 2016": 4.415,
-        "HS 2017": 4.44000005722046,
-        "HS 2018": 4.471,
-        "HS 2019": 4.3660000000000005
+        "name": "Sri Lanka"
       },
       "geometry": {
         "type": "Polygon",
@@ -26039,11 +25640,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Lesotho",
-        "HS 2015": 4.898,
-        "HS 2017": 3.80800008773804,
-        "HS 2018": 3.8080000000000003,
-        "HS 2019": 3.802
+        "name": "Lesotho"
       },
       "geometry": {
         "type": "Polygon",
@@ -26105,12 +25702,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Lithuania",
-        "HS 2015": 5.832999999999999,
-        "HS 2016": 5.813,
-        "HS 2017": 5.90199995040894,
-        "HS 2018": 5.952000000000001,
-        "HS 2019": 6.149
+        "name": "Lithuania"
       },
       "geometry": {
         "type": "Polygon",
@@ -26200,12 +25792,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Luxembourg",
-        "HS 2015": 6.946000000000001,
-        "HS 2016": 6.871,
-        "HS 2017": 6.86299991607666,
-        "HS 2018": 6.91,
-        "HS 2019": 7.09
+        "name": "Luxembourg"
       },
       "geometry": {
         "type": "Polygon",
@@ -26247,12 +25834,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Latvia",
-        "HS 2015": 5.098,
-        "HS 2016": 5.56,
-        "HS 2017": 5.849999904632571,
-        "HS 2018": 5.933,
-        "HS 2019": 5.94
+        "name": "Latvia"
       },
       "geometry": {
         "type": "Polygon",
@@ -26354,12 +25936,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Morocco",
-        "HS 2015": 5.013,
-        "HS 2016": 5.151,
-        "HS 2017": 5.2350001335144,
-        "HS 2018": 5.254,
-        "HS 2019": 5.207999999999999
+        "name": "Morocco"
       },
       "geometry": {
         "type": "Polygon",
@@ -26629,12 +26206,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Moldova",
-        "HS 2015": 5.888999999999999,
-        "HS 2016": 5.897,
-        "HS 2017": 5.837999820709231,
-        "HS 2018": 5.64,
-        "HS 2019": 5.529
+        "name": "Moldova"
       },
       "geometry": {
         "type": "Polygon",
@@ -26756,12 +26328,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Madagascar",
-        "HS 2015": 3.681,
-        "HS 2016": 3.695,
-        "HS 2017": 3.64400005340576,
-        "HS 2018": 3.7739999999999996,
-        "HS 2019": 3.9330000000000003
+        "name": "Madagascar"
       },
       "geometry": {
         "type": "Polygon",
@@ -26971,12 +26538,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mexico",
-        "HS 2015": 7.187,
-        "HS 2016": 6.778,
-        "HS 2017": 6.57800006866455,
-        "HS 2018": 6.4879999999999995,
-        "HS 2019": 6.595
+        "name": "Mexico"
       },
       "geometry": {
         "type": "Polygon",
@@ -27670,11 +27232,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Macedonia",
-        "HS 2015": 5.007,
-        "HS 2016": 5.121,
-        "HS 2017": 5.175000190734861,
-        "HS 2018": 5.185
+        "name": "Macedonia"
       },
       "geometry": {
         "type": "Polygon",
@@ -27756,12 +27314,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mali",
-        "HS 2015": 3.995,
-        "HS 2016": 4.073,
-        "HS 2017": 4.19000005722046,
-        "HS 2018": 4.447,
-        "HS 2019": 4.39
+        "name": "Mali"
       },
       "geometry": {
         "type": "Polygon",
@@ -28079,12 +27632,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Myanmar",
-        "HS 2015": 4.3069999999999995,
-        "HS 2016": 4.395,
-        "HS 2017": 4.54500007629395,
-        "HS 2018": 4.308,
-        "HS 2019": 4.36
+        "name": "Myanmar"
       },
       "geometry": {
         "type": "Polygon",
@@ -28378,12 +27926,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Montenegro",
-        "HS 2015": 5.192,
-        "HS 2016": 5.1610000000000005,
-        "HS 2017": 5.23699998855591,
-        "HS 2018": 5.347,
-        "HS 2019": 5.523
+        "name": "Montenegro"
       },
       "geometry": {
         "type": "Polygon",
@@ -28469,12 +28012,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mongolia",
-        "HS 2015": 4.874,
-        "HS 2016": 4.907,
-        "HS 2017": 4.95499992370605,
-        "HS 2018": 5.125,
-        "HS 2019": 5.285
+        "name": "Mongolia"
       },
       "geometry": {
         "type": "Polygon",
@@ -28788,11 +28326,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mozambique",
-        "HS 2015": 4.971,
-        "HS 2017": 4.550000190734861,
-        "HS 2018": 4.417,
-        "HS 2019": 4.466
+        "name": "Mozambique"
       },
       "geometry": {
         "type": "Polygon",
@@ -29114,12 +28648,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mauritania",
-        "HS 2015": 4.436,
-        "HS 2016": 4.2010000000000005,
-        "HS 2017": 4.29199981689453,
-        "HS 2018": 4.356,
-        "HS 2019": 4.49
+        "name": "Mauritania"
       },
       "geometry": {
         "type": "Polygon",
@@ -29289,12 +28818,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Malawi",
-        "HS 2015": 4.292,
-        "HS 2016": 4.156000000000001,
-        "HS 2017": 3.97000002861023,
-        "HS 2018": 3.5869999999999997,
-        "HS 2019": 3.41
+        "name": "Malawi"
       },
       "geometry": {
         "type": "Polygon",
@@ -29420,12 +28944,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Malaysia",
-        "HS 2015": 5.77,
-        "HS 2016": 6.005,
-        "HS 2017": 6.08400011062622,
-        "HS 2018": 6.322,
-        "HS 2019": 5.3389999999999995
+        "name": "Malaysia"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29693,11 +29212,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Namibia",
-        "HS 2016": 4.574,
-        "HS 2017": 4.57399988174438,
-        "HS 2018": 4.441,
-        "HS 2019": 4.638999999999999
+        "name": "Namibia"
       },
       "geometry": {
         "type": "Polygon",
@@ -29953,12 +29468,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Niger",
-        "HS 2015": 3.845,
-        "HS 2016": 3.8560000000000003,
-        "HS 2017": 4.02799987792969,
-        "HS 2018": 4.166,
-        "HS 2019": 4.628
+        "name": "Niger"
       },
       "geometry": {
         "type": "Polygon",
@@ -30204,12 +29714,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Nigeria",
-        "HS 2015": 5.268,
-        "HS 2016": 4.875,
-        "HS 2017": 5.07399988174438,
-        "HS 2018": 5.155,
-        "HS 2019": 5.265
+        "name": "Nigeria"
       },
       "geometry": {
         "type": "Polygon",
@@ -30455,12 +29960,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Nicaragua",
-        "HS 2015": 5.827999999999999,
-        "HS 2016": 5.992000000000001,
-        "HS 2017": 6.07100009918213,
-        "HS 2018": 6.141,
-        "HS 2019": 6.105
+        "name": "Nicaragua"
       },
       "geometry": {
         "type": "Polygon",
@@ -30682,12 +30182,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Netherlands",
-        "HS 2015": 7.377999999999999,
-        "HS 2016": 7.3389999999999995,
-        "HS 2017": 7.3769998550415,
-        "HS 2018": 7.441,
-        "HS 2019": 7.4879999999999995
+        "name": "Netherlands"
       },
       "geometry": {
         "type": "Polygon",
@@ -30757,12 +30252,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Norway",
-        "HS 2015": 7.522,
-        "HS 2016": 7.497999999999999,
-        "HS 2017": 7.537000179290769,
-        "HS 2018": 7.593999999999999,
-        "HS 2019": 7.553999999999999
+        "name": "Norway"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31142,12 +30632,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Nepal",
-        "HS 2015": 4.513999999999999,
-        "HS 2016": 4.793,
-        "HS 2017": 4.961999893188481,
-        "HS 2018": 4.88,
-        "HS 2019": 4.913
+        "name": "Nepal"
       },
       "geometry": {
         "type": "Polygon",
@@ -31253,12 +30738,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "New Zealand",
-        "HS 2015": 7.2860000000000005,
-        "HS 2016": 7.334,
-        "HS 2017": 7.31400012969971,
-        "HS 2018": 7.324,
-        "HS 2019": 7.307
+        "name": "New Zealand"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31542,8 +31022,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Oman",
-        "HS 2015": 6.853
+        "name": "Oman"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31751,12 +31230,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Pakistan",
-        "HS 2015": 5.194,
-        "HS 2016": 5.132000000000001,
-        "HS 2017": 5.26900005340576,
-        "HS 2018": 5.472,
-        "HS 2019": 5.653
+        "name": "Pakistan"
       },
       "geometry": {
         "type": "Polygon",
@@ -32034,12 +31508,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Panama",
-        "HS 2015": 6.7860000000000005,
-        "HS 2016": 6.7010000000000005,
-        "HS 2017": 6.4520001411438,
-        "HS 2018": 6.43,
-        "HS 2019": 6.321000000000001
+        "name": "Panama"
       },
       "geometry": {
         "type": "Polygon",
@@ -32261,12 +31730,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Peru",
-        "HS 2015": 5.824,
-        "HS 2016": 5.742999999999999,
-        "HS 2017": 5.71500015258789,
-        "HS 2018": 5.662999999999999,
-        "HS 2019": 5.697
+        "name": "Peru"
       },
       "geometry": {
         "type": "Polygon",
@@ -32584,12 +32048,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Philippines",
-        "HS 2015": 5.073,
-        "HS 2016": 5.279,
-        "HS 2017": 5.42999982833862,
-        "HS 2018": 5.524,
-        "HS 2019": 5.631
+        "name": "Philippines"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -33421,12 +32880,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Poland",
-        "HS 2015": 5.791,
-        "HS 2016": 5.835,
-        "HS 2017": 5.97300004959106,
-        "HS 2018": 6.122999999999999,
-        "HS 2019": 6.182
+        "name": "Poland"
       },
       "geometry": {
         "type": "Polygon",
@@ -33620,8 +33074,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Puerto Rico",
-        "HS 2016": 7.039
+        "name": "Puerto Rico"
       },
       "geometry": {
         "type": "Polygon",
@@ -33857,12 +33310,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Portugal",
-        "HS 2015": 5.102,
-        "HS 2016": 5.122999999999999,
-        "HS 2017": 5.19500017166138,
-        "HS 2018": 5.41,
-        "HS 2019": 5.693
+        "name": "Portugal"
       },
       "geometry": {
         "type": "Polygon",
@@ -34008,12 +33456,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Paraguay",
-        "HS 2015": 5.877999999999999,
-        "HS 2016": 5.537999999999999,
-        "HS 2017": 5.493000030517581,
-        "HS 2018": 5.681,
-        "HS 2019": 5.742999999999999
+        "name": "Paraguay"
       },
       "geometry": {
         "type": "Polygon",
@@ -34159,12 +33602,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Qatar",
-        "HS 2015": 6.611000000000001,
-        "HS 2016": 6.375,
-        "HS 2017": 6.375,
-        "HS 2018": 6.374,
-        "HS 2019": 6.374
+        "name": "Qatar"
       },
       "geometry": {
         "type": "Polygon",
@@ -34214,12 +33652,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Romania",
-        "HS 2015": 5.124,
-        "HS 2016": 5.528,
-        "HS 2017": 5.824999809265139,
-        "HS 2018": 5.945,
-        "HS 2019": 6.07
+        "name": "Romania"
       },
       "geometry": {
         "type": "Polygon",
@@ -34409,12 +33842,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Russia",
-        "HS 2015": 5.716,
-        "HS 2016": 5.856,
-        "HS 2017": 5.962999820709231,
-        "HS 2018": 5.81,
-        "HS 2019": 5.648
+        "name": "Russia"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -36870,12 +36298,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Rwanda",
-        "HS 2015": 3.465,
-        "HS 2016": 3.515,
-        "HS 2017": 3.47099995613098,
-        "HS 2018": 3.408,
-        "HS 2019": 3.3339999999999996
+        "name": "Rwanda"
       },
       "geometry": {
         "type": "Polygon",
@@ -37067,12 +36490,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Saudi Arabia",
-        "HS 2015": 6.4110000000000005,
-        "HS 2016": 6.379,
-        "HS 2017": 6.343999862670901,
-        "HS 2018": 6.371,
-        "HS 2019": 6.375
+        "name": "Saudi Arabia"
       },
       "geometry": {
         "type": "Polygon",
@@ -37390,11 +36808,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Sudan",
-        "HS 2015": 4.55,
-        "HS 2016": 4.138999999999999,
-        "HS 2017": 4.138999938964839,
-        "HS 2018": 4.138999999999999
+        "name": "Sudan"
       },
       "geometry": {
         "type": "Polygon",
@@ -37724,11 +37138,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "South Sudan",
-        "HS 2016": 3.832,
-        "HS 2017": 3.5910000801086404,
-        "HS 2018": 3.2539999999999996,
-        "HS 2019": 2.853
+        "name": "South Sudan"
       },
       "geometry": {
         "type": "Polygon",
@@ -37994,12 +37404,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Senegal",
-        "HS 2015": 3.904,
-        "HS 2016": 4.218999999999999,
-        "HS 2017": 4.53499984741211,
-        "HS 2018": 4.631,
-        "HS 2019": 4.681
+        "name": "Senegal"
       },
       "geometry": {
         "type": "Polygon",
@@ -38369,12 +37774,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Sierra Leone",
-        "HS 2015": 4.507,
-        "HS 2016": 4.635,
-        "HS 2017": 4.70900011062622,
-        "HS 2018": 4.571000000000001,
-        "HS 2019": 4.374
+        "name": "Sierra Leone"
       },
       "geometry": {
         "type": "Polygon",
@@ -38476,12 +37876,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "El Salvador",
-        "HS 2015": 6.13,
-        "HS 2016": 6.068,
-        "HS 2017": 6.002999782562259,
-        "HS 2018": 6.167000000000001,
-        "HS 2019": 6.252999999999999
+        "name": "El Salvador"
       },
       "geometry": {
         "type": "Polygon",
@@ -38575,8 +37970,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Somaliland region",
-        "HS 2015": 5.0569999999999995
+        "name": "Somaliland region"
       },
       "geometry": {
         "type": "Polygon",
@@ -38686,11 +38080,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Somalia",
-        "HS 2016": 5.44,
-        "HS 2017": 5.151000022888179,
-        "HS 2018": 4.982,
-        "HS 2019": 4.668
+        "name": "Somalia"
       },
       "geometry": {
         "type": "Polygon",
@@ -38848,12 +38238,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Serbia",
-        "HS 2015": 5.122999999999999,
-        "HS 2016": 5.1770000000000005,
-        "HS 2017": 5.39499998092651,
-        "HS 2018": 5.398,
-        "HS 2019": 5.603
+        "name": "Serbia"
       },
       "geometry": {
         "type": "Polygon",
@@ -39051,9 +38436,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Suriname",
-        "HS 2015": 6.269,
-        "HS 2016": 6.269
+        "name": "Suriname"
       },
       "geometry": {
         "type": "Polygon",
@@ -39171,12 +38554,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Slovakia",
-        "HS 2015": 5.995,
-        "HS 2016": 6.077999999999999,
-        "HS 2017": 6.09800004959106,
-        "HS 2018": 6.172999999999999,
-        "HS 2019": 6.1979999999999995
+        "name": "Slovakia"
       },
       "geometry": {
         "type": "Polygon",
@@ -39322,12 +38700,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Slovenia",
-        "HS 2015": 5.848,
-        "HS 2016": 5.768,
-        "HS 2017": 5.75799989700317,
-        "HS 2018": 5.9479999999999995,
-        "HS 2019": 6.117999999999999
+        "name": "Slovenia"
       },
       "geometry": {
         "type": "Polygon",
@@ -39413,12 +38786,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Sweden",
-        "HS 2015": 7.364,
-        "HS 2016": 7.291,
-        "HS 2017": 7.28399991989136,
-        "HS 2018": 7.314,
-        "HS 2019": 7.343
+        "name": "Sweden"
       },
       "geometry": {
         "type": "Polygon",
@@ -39592,9 +38960,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Swaziland",
-        "HS 2015": 4.867,
-        "HS 2019": 4.212
+        "name": "Swaziland"
       },
       "geometry": {
         "type": "Polygon",
@@ -39652,12 +39018,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Syria",
-        "HS 2015": 3.0060000000000002,
-        "HS 2016": 3.069,
-        "HS 2017": 3.46199989318848,
-        "HS 2018": 3.4619999999999997,
-        "HS 2019": 3.4619999999999997
+        "name": "Syria"
       },
       "geometry": {
         "type": "Polygon",
@@ -39779,12 +39140,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Chad",
-        "HS 2015": 3.667,
-        "HS 2016": 3.763,
-        "HS 2017": 3.9360001087188703,
-        "HS 2018": 4.301,
-        "HS 2019": 4.35
+        "name": "Chad"
       },
       "geometry": {
         "type": "Polygon",
@@ -40030,12 +39386,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Togo",
-        "HS 2015": 2.839,
-        "HS 2016": 3.303,
-        "HS 2017": 3.4949998855590803,
-        "HS 2018": 3.9989999999999997,
-        "HS 2019": 4.085
+        "name": "Togo"
       },
       "geometry": {
         "type": "Polygon",
@@ -40125,12 +39476,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Thailand",
-        "HS 2015": 6.455,
-        "HS 2016": 6.474,
-        "HS 2017": 6.4239997863769505,
-        "HS 2018": 6.072,
-        "HS 2019": 6.007999999999999
+        "name": "Thailand"
       },
       "geometry": {
         "type": "Polygon",
@@ -40400,12 +39746,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Tajikistan",
-        "HS 2015": 4.7860000000000005,
-        "HS 2016": 4.996,
-        "HS 2017": 5.04099988937378,
-        "HS 2018": 5.199,
-        "HS 2019": 5.4670000000000005
+        "name": "Tajikistan"
       },
       "geometry": {
         "type": "Polygon",
@@ -40583,12 +39924,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Turkmenistan",
-        "HS 2015": 5.547999999999999,
-        "HS 2016": 5.6579999999999995,
-        "HS 2017": 5.82200002670288,
-        "HS 2018": 5.636,
-        "HS 2019": 5.247000000000001
+        "name": "Turkmenistan"
       },
       "geometry": {
         "type": "Polygon",
@@ -40876,10 +40212,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Trinidad and Tobago",
-        "HS 2015": 6.167999999999999,
-        "HS 2016": 6.167999999999999,
-        "HS 2017": 6.1680002212524405
+        "name": "Trinidad and Tobago"
       },
       "geometry": {
         "type": "Polygon",
@@ -40925,12 +40258,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Tunisia",
-        "HS 2015": 4.739,
-        "HS 2016": 5.045,
-        "HS 2017": 4.80499982833862,
-        "HS 2018": 4.592,
-        "HS 2019": 4.461
+        "name": "Tunisia"
       },
       "geometry": {
         "type": "Polygon",
@@ -41068,12 +40396,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Turkey",
-        "HS 2015": 5.332000000000001,
-        "HS 2016": 5.388999999999999,
-        "HS 2017": 5.5,
-        "HS 2018": 5.483,
-        "HS 2019": 5.372999999999999
+        "name": "Turkey"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -41361,11 +40684,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Taiwan",
-        "HS 2015": 6.297999999999999,
-        "HS 2016": 6.379,
-        "HS 2018": 6.441,
-        "HS 2019": 6.446000000000001
+        "name": "Taiwan"
       },
       "geometry": {
         "type": "Polygon",
@@ -41415,12 +40734,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Tanzania",
-        "HS 2015": 3.781,
-        "HS 2016": 3.6660000000000004,
-        "HS 2017": 3.34899997711182,
-        "HS 2018": 3.303,
-        "HS 2019": 3.2310000000000003
+        "name": "Tanzania"
       },
       "geometry": {
         "type": "Polygon",
@@ -41630,12 +40944,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Uganda",
-        "HS 2015": 3.931,
-        "HS 2016": 3.739,
-        "HS 2017": 4.08099985122681,
-        "HS 2018": 4.1610000000000005,
-        "HS 2019": 4.189
+        "name": "Uganda"
       },
       "geometry": {
         "type": "Polygon",
@@ -41757,12 +41066,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ukraine",
-        "HS 2015": 4.681,
-        "HS 2016": 4.324,
-        "HS 2017": 4.09600019454956,
-        "HS 2018": 4.103,
-        "HS 2019": 4.332
+        "name": "Ukraine"
       },
       "geometry": {
         "type": "Polygon",
@@ -42168,12 +41472,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Uruguay",
-        "HS 2015": 6.485,
-        "HS 2016": 6.545,
-        "HS 2017": 6.4539999961853,
-        "HS 2018": 6.379,
-        "HS 2019": 6.292999999999999
+        "name": "Uruguay"
       },
       "geometry": {
         "type": "Polygon",
@@ -42271,12 +41570,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "United States",
-        "HS 2015": 7.119,
-        "HS 2016": 7.104,
-        "HS 2017": 6.993000030517581,
-        "HS 2018": 6.886,
-        "HS 2019": 6.892
+        "name": "United States"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -44104,12 +43398,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Uzbekistan",
-        "HS 2015": 6.002999999999999,
-        "HS 2016": 5.987,
-        "HS 2017": 5.97100019454956,
-        "HS 2018": 6.096,
-        "HS 2019": 6.1739999999999995
+        "name": "Uzbekistan"
       },
       "geometry": {
         "type": "Polygon",
@@ -44339,12 +43628,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Venezuela",
-        "HS 2015": 6.81,
-        "HS 2016": 6.084,
-        "HS 2017": 5.25,
-        "HS 2018": 4.806,
-        "HS 2019": 4.707
+        "name": "Venezuela"
       },
       "geometry": {
         "type": "Polygon",
@@ -44726,12 +44010,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Vietnam",
-        "HS 2015": 5.36,
-        "HS 2016": 5.061,
-        "HS 2017": 5.07399988174438,
-        "HS 2018": 5.103,
-        "HS 2019": 5.175
+        "name": "Vietnam"
       },
       "geometry": {
         "type": "Polygon",
@@ -45039,12 +44318,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Yemen",
-        "HS 2015": 4.077,
-        "HS 2016": 3.7239999999999998,
-        "HS 2017": 3.59299993515015,
-        "HS 2018": 3.355,
-        "HS 2019": 3.38
+        "name": "Yemen"
       },
       "geometry": {
         "type": "Polygon",
@@ -45234,12 +44508,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "South Africa",
-        "HS 2015": 4.6419999999999995,
-        "HS 2016": 4.459,
-        "HS 2017": 4.8289999961853,
-        "HS 2018": 4.724,
-        "HS 2019": 4.7219999999999995
+        "name": "South Africa"
       },
       "geometry": {
         "type": "Polygon",
@@ -45631,12 +44900,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Zambia",
-        "HS 2015": 5.129,
-        "HS 2016": 4.795,
-        "HS 2017": 4.513999938964839,
-        "HS 2018": 4.377,
-        "HS 2019": 4.107
+        "name": "Zambia"
       },
       "geometry": {
         "type": "Polygon",
@@ -45894,12 +45158,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Zimbabwe",
-        "HS 2015": 4.61,
-        "HS 2016": 4.1930000000000005,
-        "HS 2017": 3.875,
-        "HS 2018": 3.6919999999999997,
-        "HS 2019": 3.6630000000000003
+        "name": "Zimbabwe"
       },
       "geometry": {
         "type": "Polygon",

@@ -45,7 +45,7 @@
         }
 
         nav {
-            display: block;
+            display: flex;
             float: left;
             position: relative;
             width: 800px;
@@ -119,10 +119,6 @@
             cursor: pointer;
         }
 
-        .slider_value {
-            font: bold;
-        }
-
         #container {
             overflow: hidden;
             clear: both;
@@ -141,7 +137,8 @@
         <svg id="legend_donut"></svg>
     </article>
     <nav>
-        <svg id="graph" width=960 height=500></svg>
+        <svg id="legend" width=100 height=500></svg>
+        <svg id="graph" width=800 height=500></svg>
     </nav>
 </div>
 <footer>
@@ -171,6 +168,13 @@
     let svg = d3.select("#graph")
         .append("svg")
         .attr("width", width)
+        .attr("height", height - 20)
+        .append('g')
+        .attr('class', 'map');
+
+    let svg_legend = d3.select("#legend")
+        .append("svg")
+        .attr("width", 100)
         .attr("height", height)
         .append('g')
         .attr('class', 'map');
@@ -189,20 +193,11 @@
     let output = document.getElementById("demo");
     output.innerHTML = rangeslider.value;
 
-    function prepare_data() {
 
-
-    }
-
-    
     rangeslider.oninput = function () {
         output.innerHTML = this.value;
         year = this.value;
-        svg.selectAll("*").remove();
-        queue()
-            .defer(d3.json, "./data/world_countries.json")
-            .defer(d3.csv, `./data/${year}.csv`)
-            .await(world_map);
+        update_map()
     };
 
     let year = output.innerHTML;
@@ -211,57 +206,31 @@
         .defer(d3.csv, `./data/${year}.csv`)
         .await(world_map);
 
-    function update_map(error, countries, data) {
+    function update_map() {
         console.log("UPDATE MAP WITH " + year + " DATA");
-        let maxScore = 0;
-        let minScore = 10;
+        let maxScore = 7.5;
+        let minScore = 3;
 
         let scores = {};
 
-        data.forEach(function (d) {
-            scores[d["Country"]] = +d["Happiness Score"];
-        });
         let color = d3.scaleSequential(d3.interpolateBlues);
 
-        Object.keys(scores).forEach(function (country) {
-            svg.selectAll("path").data(countries.features)
-                .filter(function (e) {
-                    return e.properties.name === country;
-                })
-                .transition()
-                .style("fill", function (d) {
-                    console.log(country);
-                    console.log(d);
-                    d["Happiness Score"] = scores[country];
-                    if (d["Happiness Score"]) {
-                        return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
-                    } else {
-                        return "lightgrey"
-                    }
-                })
-        });
+        svg.select("g").selectAll("path").transition().style("fill", function (d) {
+            if (d.properties["HS " + year]) {
+                return color((d.properties["HS " + year] - minScore) / (maxScore - minScore))
+            } else {
+                return "lightgrey"
+            }
+        })
     }
 
     function world_map(error, countries, data) {
         console.log("BUILD INIT MAP FOR YEAR " + year);
-        let maxScore = 0;
-        let minScore = 10;
+        let maxScore = 7.5;
+        let minScore = 2.5;
 
         let scores = {};
 
-        data.forEach(function (d) {
-            scores[d["Country"]] = +d["Happiness Score"];
-        });
-
-        countries.features.forEach(function (d) {
-            if (scores[d.properties.name] > maxScore) {
-                maxScore = scores[d.properties.name];
-            }
-            if (scores[d.properties.name] < minScore) {
-                minScore = scores[d.properties.name];
-            }
-            d["Happiness Score"] = scores[d.properties.name]
-        });
 
         let color = d3.scaleSequential(d3.interpolateBlues);
         let colors = d3.range(10).map(function (d) {
@@ -275,7 +244,7 @@
         let legendSize = 30;
         let legendWidth = 20;
 
-        let legend = svg.append('g')
+        let legend = svg_legend.append('g')
             .attr('transform', 'translate(50, 100)');
 
         legend.selectAll()
@@ -311,8 +280,8 @@
             .enter().append("path")
             .attr("d", path)
             .style("fill", function (d) {
-                if (d["Happiness Score"]) {
-                    return color((d["Happiness Score"] - minScore) / (maxScore - minScore))
+                if (d.properties["HS " + year]) {
+                    return color((d.properties["HS " + year] - minScore) / (maxScore - minScore))
                 } else {
                     return "lightgrey"
                 }
@@ -320,8 +289,8 @@
             .style("stroke", "white")
             .style("stroke-width", 0.3)
             .on("mouseover", function (d) {
-                if (d["Happiness Score"]) {
-                    let mouve = 285 - ((d["Happiness Score"] - minScore) / (maxScore - minScore)) * 10 * legendSize;
+                if (d.properties["HS " + year]) {
+                    let mouve = 285 - ((d.properties["HS " + year] - minScore) / (maxScore - minScore)) * 10 * legendSize;
                     curseur
                         .style("opacity", 1)
                         .attr("points", (20 + legendWidth) + "," + (mouve + legendSize - 5) + " " + (20 + legendWidth) + "," + (mouve + 5) + " " + (7 + legendWidth) + "," + (legendSize / 2 + mouve));
@@ -337,12 +306,12 @@
                     .style("top", (d3.event.pageY - 28) + "px");
             })
             .on("mouseout", function (d) {
-                if (d["Happiness Score"]) {
+                if (d.properties["HS " + year]) {
                     curseur
                         .style("opacity", 0);
                     d3.selectAll("path").filter(function (e) {
                         return d === e
-                    }).style("fill", color((d["Happiness Score"] - minScore) / (maxScore - minScore)))
+                    }).style("fill", color((d.properties["HS " + year] - minScore) / (maxScore - minScore)))
                 }
                 div.transition()
                     .duration(500)
