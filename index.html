@@ -63,13 +63,12 @@
             position: relative;
             width: 420px;
             float: right;
-            text-align: left;
+            text-align: center;
             top: 0px;
             margin: 0px;
             left: 0px;
             padding: 10px;
             color: #000000;
-            text-align: justify;
             border-bottom: 1px solid #cccccc;
             border-right: 1px solid #cccccc;
             padding-bottom: 32767px;
@@ -133,6 +132,7 @@
 </header>
 <div id="container">
     <article>
+        <p><span id="DonutCountry"></span></p>
         <svg id="donut_chart"></svg>
         <svg id="legend_donut"></svg>
     </article>
@@ -145,7 +145,7 @@
     <div class="rangeslider">
         <input type="range" min="2015" max="2019" value="2015"
                class="myslider" id="sliderRange">
-        <p class="slider_value">Value: <span id="demo"></span></p>
+        <p class="slider_value">Year: <span id="demo"></span></p>
     </div>
 </footer>
 
@@ -339,6 +339,8 @@
         .attr("transform", "translate(" + donut_radius + "," + donut_radius + ")");
 
     function plot_donut(year, pays, el, width, height, radius) {
+        document.getElementById("DonutCountry").innerHTML = pays;
+
         let country = {};
         d3.csv("./data/" + year + ".csv", function (data) {
             data.forEach(function (d) {
