@@ -317,7 +317,7 @@
             .on("click", function (d) {
                 DonutCountry = d.properties.name;
                 svgdonut.selectAll("*").remove()
-                plot_donut("2015", DonutCountry, svgdonut, donut_width, donut_height, donut_radius);
+                plot_donut(DonutCountry, svgdonut, donut_width, donut_height, donut_radius);
             });
 
     }
