@@ -359,6 +359,23 @@
         svgdonut.selectAll("g").selectAll("text").remove();
         svgdonut.selectAll("g").selectAll("polyLine").remove();
 
+        let change_side_trust = false;
+        let change_side_generosity = false;
+
+        pie(donut).forEach(function (d) {
+                if (d.startAngle > Math.PI * 2 * 0.95) {
+                    if (d.data["label"] === "Trust") {
+                        change_side_trust = true
+                    }
+                    if (d.data["label"] === "Generosity") {
+                        if (!change_side_trust) {
+                            change_side_generosity = true
+                        }
+                    }
+                }
+            }
+        );
+
         g.selectAll('allPolylines')
             .data(pie(donut))
             .enter()
@@ -372,8 +389,14 @@
                 let posA = arc.centroid(d); // line insertion in the slice
                 let posB = outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
                 let posC = outerArc.centroid(d); // Label position = almost the same as posB
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1) * (d.startAngle > Math.PI * 2 * 0.95 ? -1 : 1); // multiply by 1 or -1 to put it on the right or on the left
+                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
+                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+                if (d.data["label"] === "Trust") {
+                    posC[0] *= (change_side_trust ? -1 : 1)
+                }
+                if (d.data["label"] === "Generosity") {
+                    posC[0] *= (change_side_generosity ? -1 : 1)
+                }
                 return [posA, posB, posC]
             });
 
@@ -387,11 +410,20 @@
             .attr('transform', function (d) {
                 let pos = outerArc.centroid(d);
                 let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1) * (d.startAngle > Math.PI * 2 * 0.95 ? -1 : 1);
+                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+                if (d.data["label"] === "Trust" && change_side_trust) {
+                    pos[0] *= -1
+                }
+                if (d.data["label"] === "Generosity" && change_side_generosity) {
+                    pos[0] *= -1
+                }
                 return 'translate(' + pos + ')';
             })
             .style('text-anchor', function (d) {
-                if (d.startAngle > Math.PI * 2 * 0.95) {
+                if (d.data["label"] === "Generosity" && change_side_generosity) {
+                    return 'start'
+                }
+                if (d.data["label"] === "Trust" && change_side_trust) {
                     return 'start'
                 }
                 var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
