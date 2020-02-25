@@ -77,6 +77,10 @@
             border: 1px solid #e7e2d7;
         }
 
+        .donut {
+
+        }
+
         .slider_value {
             font-size: large;
         }
@@ -126,12 +130,12 @@
 <div id="container">
     <article>
         <p><span id="DonutCountry"></span></p>
-        <svg id="donut_chart"></svg>
+        <svg class="donut" id="donut_chart"></svg>
         <svg id="legend_donut"></svg>
     </article>
     <nav>
         <svg id="legend" width=100 height=500></svg>
-        <svg id="graph" width=800 height=500></svg>
+        <svg id="graph" width=900 height=500></svg>
     </nav>
 </div>
 <footer>
@@ -153,10 +157,8 @@
 <script>
 
 
-    const margin = {top: 0, right: 0, bottom: 0, left: 0},
-        width = 800 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
-
+    const width = 900,
+        height = 500;
 
     let svg = d3.select("#graph")
         .append("svg")
@@ -167,7 +169,7 @@
 
     let svg_legend = d3.select("#legend")
         .append("svg")
-        .attr("width", 250)
+        .attr("width", 100)
         .attr("height", height)
         .append('g')
         .attr('class', 'map');
@@ -177,8 +179,8 @@
         .attr("height", 200);
 
     let projection = d3.geoMercator()
-        .scale(100)
-        .translate([width / 2, height / 1.5]);
+        .scale(110)
+        .translate([width / 2 - 100, height / 1.5]);
 
     let path = d3.geoPath().projection(projection);
 
@@ -200,6 +202,7 @@
         .defer(d3.json, "./data/world_countries.json")
         .defer(d3.csv, `./data/${year}.csv`)
         .await(world_map);
+
 
     function update_map() {
         console.log("UPDATE MAP WITH " + year + " DATA");
@@ -338,16 +341,124 @@
 
 
     // Define size & radius of donut pie chart
-    let donut_width = 300,
-        donut_height = 300,
+    let donut_width = 250,
+        donut_height = 250,
         donut_radius = Math.min(donut_width, donut_height) / 2;
 
     // Append SVG attributes and append g to the SVG
     let svgdonut = d3.select("#donut_chart")
-        .attr("width", donut_width)
-        .attr("height", donut_height)
+        .attr("width", 500)
+        .attr("height", 300)
         .append("g")
-        .attr("transform", "translate(" + donut_radius + "," + donut_radius + ")");
+        .attr("transform", "translate(" + (90 + donut_radius) + "," + (50 + donut_radius) + ")");
+
+    let colour_donut = ["#E38F73", "#839A88", "#fa7268", "#69b3a2", "#B76E5D", "#CCD3C1"];//d3.scaleOrdinal(d3.schemeCategory20);
+
+    function add_donut_labels(g, pie, donut, arc, outerArc, radius, somme) {
+
+        svgdonut.selectAll("g").selectAll("text").remove();
+        svgdonut.selectAll("g").selectAll("polyLine").remove();
+
+        g.selectAll('allPolylines')
+            .data(pie(donut))
+            .enter()
+            .append('polyline')
+            .attr("stroke", function (d, i) {
+                return colour_donut[i]
+            })
+            .style("fill", "none")
+            .attr("stroke-width", 1)
+            .attr('points', function (d) {
+                let posA = arc.centroid(d); // line insertion in the slice
+                let posB = outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
+                let posC = outerArc.centroid(d); // Label position = almost the same as posB
+                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1) * (d.startAngle > Math.PI * 2 * 0.95 ? -1 : 1); // multiply by 1 or -1 to put it on the right or on the left
+                return [posA, posB, posC]
+            });
+
+        g.selectAll('allLabels')
+            .data(pie(donut))
+            .enter()
+            .append('text')
+            .text(function (d) {
+                return d.data["label"] + " : " + (d["value"] / somme * 100).toFixed(1) + " %"
+            })
+            .attr('transform', function (d) {
+                let pos = outerArc.centroid(d);
+                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1) * (d.startAngle > Math.PI * 2 * 0.95 ? -1 : 1);
+                return 'translate(' + pos + ')';
+            })
+            .style('text-anchor', function (d) {
+                if (d.startAngle > Math.PI * 2 * 0.95) {
+                    return 'start'
+                }
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+                return (midangle < Math.PI ? 'start' : 'end')
+            })
+            .attr("fill", function (d, i) {
+                return colour_donut[i]
+            })
+            .style("font-size", "12px");
+
+        const elements = document.getElementsByClassName("inner-circle");
+
+        while (elements.length > 0) elements[0].remove();
+
+    }
+
+    function add_center_donut(el, score, rank) {
+
+        el.append("text")
+            .attr("dy", "-0.5em")
+            .style("text-anchor", "middle")
+            .attr("class", "inner-circle")
+            .attr("font-size", 12)
+            .attr("fill", "#36454f")
+            .text(function (d) {
+                return "Score : " + score;
+            });
+
+        el.append("text")
+            .attr("dy", "1.0em")
+            .style("text-anchor", "middle")
+            .attr("font-size", 12)
+            .attr("class", "inner-circle")
+            .attr("fill", "#36454f")
+            .text(function (d) {
+                return "Rank : " + rank;
+            });
+
+    }
+
+    function parse_donut_data(country) {
+        let rank = country["Happiness Rank"];
+        let score = parseFloat(country["Happiness Score"]).toFixed(2);
+        let somme = parseFloat(country["Economy (GDP per Capita)"]) + parseFloat(country["Family"]) + parseFloat(country["Health (Life Expectancy)"]) + parseFloat(country["Freedom"]) + parseFloat(country["Trust (Government Corruption)"]) + parseFloat(country["Generosity"]);
+
+        let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
+        liste.forEach(function (d) {
+            delete country[d]
+        });
+
+        let donut = [];
+        label_to_transform = {
+            'Economy (GDP per Capita)': 'Economy',
+            'Health (Life Expectancy)': 'Health',
+            'Trust (Government Corruption)': 'Trust'
+        };
+
+        Object.keys(country).forEach(function (label) {
+            let label_legend = label;
+            if (Object.keys(label_to_transform).includes(label)) {
+                label_legend = label_to_transform[label]
+            }
+            donut.push({"label": label_legend, "value": +parseFloat(country[label])})
+        });
+
+        return {"donut": donut, "rank": rank, "score": score, "somme": somme}
+    }
 
     function plot_donut(pays, el, width, height, radius) {
         document.getElementById("DonutCountry").innerHTML = pays;
@@ -359,135 +470,47 @@
                     country = d;
                 }
             });
+            let data_infos = parse_donut_data(country);
 
-            let rank = country["Happiness Rank"];
-            let score = parseFloat(country["Happiness Score"]).toFixed(2);
-            let somme = parseFloat(country["Economy (GDP per Capita)"]) + parseFloat(country["Family"]) + parseFloat(country["Health (Life Expectancy)"]) + parseFloat(country["Freedom"]) + parseFloat(country["Trust (Government Corruption)"]) + parseFloat(country["Generosity"]);
+            let donut = data_infos.donut,
+                rank = data_infos.rank,
+                score = data_infos.score,
+                somme = data_infos.somme;
 
-            let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
-            liste.forEach(function (d) {
-                delete country[d]
-            });
-
-            let donut = [];
-            Object.keys(country).forEach(function (label) {
-                donut.push({"label": label, "value": +parseFloat(country[label])})
-            });
-
-// Define arc colours
-            let colour = ["#E38F73", "#839A88", "#fa7268", "#69b3a2", "#B76E5D", "#CCD3C1"];//d3.scaleOrdinal(d3.schemeCategory20);
-
-// Define arc ranges
             let arcText = d3.scaleOrdinal()
                 .range([0, width]);
 
-// Determine size of arcs
             let arc = d3.arc()
-                .innerRadius(radius - 100)
-                .outerRadius(radius - 10);
+                .innerRadius(radius * 0.4)
+                .outerRadius(radius * 0.9);
 
-// Create the donut pie chart layout
+            let outerArc = d3.arc()
+                .innerRadius(radius)
+                .outerRadius(radius);
+
             let pie = d3.pie()
                 .value(function (d) {
                     return d["value"];
                 })
                 .sort(null);
 
-
-// Calculate SVG paths and fill in the colours
             let g = el.selectAll(".arc")
                 .data(pie(donut))
                 .enter().append("g")
                 .attr("class", "arc");
 
-
-            // Append the path to each g
             g.append("path")
                 .attr("d", arc)
                 .attr("r", 100)
                 .attr("fill", function (d, i) {
-                    return colour[i];
+                    return colour_donut[i];
                 });
 
-            // Append text labels to each arc
-            g.append("text")
-                .attr("transform", function (d) {
-                    return "translate(" + arc.centroid(d) + ")";
-                })
-                .attr("dy", ".20em")
-                .style("text-anchor", "middle")
-                .style("font-size", 12)
-                .attr("fill", "#fff")
-                .text(function (d, i) {
-                    return (d["value"] / somme * 100).toFixed(1) + " %";
+            svgdonut.selectAll("g").selectAll("text").remove();
 
-                });
+            add_donut_labels(g, pie, donut, arc, outerArc, radius, somme);
 
-            const elements = document.getElementsByClassName("inner-circle");
-
-            while (elements.length > 0) elements[0].remove();
-
-// Append text to the inner circle
-            el.append("text")
-                .attr("dy", "-0.5em")
-                .style("text-anchor", "middle")
-                .attr("class", "inner-circle")
-                .attr("font-size", 12)
-                .attr("fill", "#36454f")
-                .text(function (d) {
-                    return "Score : " + score;
-                });
-
-            el.append("text")
-                .attr("dy", "1.0em")
-                .style("text-anchor", "middle")
-                .attr("font-size", 12)
-                .attr("class", "inner-circle")
-                .attr("fill", "#36454f")
-                .text(function (d) {
-                    return "Rank : " + rank;
-                });
-
-// Affiche la légende du donut
-
-            let labels = [];
-            donut.forEach(function (d) {
-                labels.push(d["label"]);
-            });
-
-            let size = 15;
-            legend_donut.selectAll("*").remove()
-            legend_donut.selectAll("legend_dots")
-                .data(labels)
-                .enter()
-                .append("rect")
-                .attr("x", 10)
-                .attr("y", function (d, i) {
-                    return 10 + i * (size + 5)
-                })
-                .attr("width", size)
-                .attr("height", size)
-                .style("fill", function (d, i) {
-                    return colour[i];
-                });
-
-            legend_donut.selectAll("legend_labels")
-                .data(labels)
-                .enter()
-                .append("text")
-                .attr("font-size", 12)
-                .attr("x", 10 + size * 1.2)
-                .attr("y", function (d, i) {
-                    return 10 + i * (size + 5) + (size / 2)
-                })
-                .style("fill", function (d, i) {
-                    return colour[i]
-                })
-                .text(function (d) {
-                    return d
-                })
-                .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle");
+            add_center_donut(el, score, rank);
 
         });
     }
@@ -503,71 +526,37 @@
                 }
             });
 
-            let rank = country["Happiness Rank"];
-            let score = parseFloat(country["Happiness Score"]).toFixed(2);
+            let data_infos = parse_donut_data(country);
 
-            let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
-            liste.forEach(function (d) {
-                delete country[d]
-            });
-
-            let donut = [];
-            Object.keys(country).forEach(function (label) {
-                donut.push({"label": label, "value": +parseFloat(country[label])})
-            });
+            let donut = data_infos.donut,
+                rank = data_infos.rank,
+                score = data_infos.score,
+                somme = data_infos.somme;
 
 
             let pie_update = d3.pie()
                 .value(function (d) {
                     return d["value"];
-                }).sort(null)(donut);
+                }).sort(null);
 
-            path = d3.select("#donut_chart")
-                .selectAll("path")
-                .data(pie_update); // Compute the new angles
+            path = svgdonut.selectAll("path")
+                .data(pie_update(donut)); // Compute the new angles
+
             let arc_update = d3.arc()
-                .innerRadius(radius - 100)
-                .outerRadius(radius - 10);
+                .innerRadius(radius * 0.4)
+                .outerRadius(radius * 0.9);
+
+            let outerArc = d3.arc()
+                .innerRadius(radius)
+                .outerRadius(radius);
+
             path.transition().duration(500).attr("d", arc_update); // redrawing the path with a smooth transition
 
             svgdonut.selectAll("g").selectAll("text").remove();
 
-            const elements = document.getElementsByClassName("inner-circle");
+            add_donut_labels(svgdonut.selectAll(".arc"), pie_update, donut, arc_update, outerArc, radius, somme);
 
-            while (elements.length > 0) elements[0].remove();
-
-            svgdonut.selectAll("g").append("text")
-                .attr("transform", function (d) {
-                    return "translate(" + arc_update.centroid(d) + ")";
-                })
-                .attr("dy", ".20em")
-                .style("text-anchor", "middle")
-                .style("font-size", 12)
-                .attr("fill", "#fff")
-                .text(function (d, i) {
-                    return (d["value"] / score * 100).toFixed(1) + " %";
-                });
-
-            el.append("text")
-                .attr("dy", "-0.5em")
-                .style("text-anchor", "middle")
-                .attr("class", "inner-circle")
-                .attr("font-size", 12)
-                .attr("fill", "#36454f")
-                .text(function (d) {
-                    return "Score : " + score;
-                });
-
-            el.append("text")
-                .attr("dy", "1.0em")
-                .style("text-anchor", "middle")
-                .attr("font-size", 12)
-                .attr("class", "inner-circle")
-                .attr("fill", "#36454f")
-                .text(function (d) {
-                    return "Rank : " + rank;
-                });
-
+            add_center_donut(el, score, rank);
 
         })
     }
