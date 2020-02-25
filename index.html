@@ -153,7 +153,7 @@
 <script>
 
 
-    const margin = {top: 0, right: 0, bottom: 0, left: 40},
+    const margin = {top: 0, right: 0, bottom: 0, left: 0},
         width = 800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -167,7 +167,7 @@
 
     let svg_legend = d3.select("#legend")
         .append("svg")
-        .attr("width", 100)
+        .attr("width", 250)
         .attr("height", height)
         .append('g')
         .attr('class', 'map');
@@ -240,7 +240,7 @@
         let legendWidth = 20;
 
         let legend = svg_legend.append('g')
-            .attr('transform', 'translate(50, 100)');
+            .attr('transform', 'translate(25, 100)');
 
         legend.selectAll()
             .data(colors)
@@ -254,6 +254,21 @@
             .style("fill", function (d, i) {
                 return d;
             });
+
+        legend.append('svg:rect')
+            .attr('height', legendWidth + 'px')
+            .attr('width', legendWidth + 'px')
+            .attr('x', -15)
+            .attr('y', 320)
+            .style("fill", "lightgrey");
+
+        legend.append("text")
+            .text("No Data")
+            .attr('x', 10)
+            .attr('y', 335)
+            .style("font-size", "12px")
+            .attr('fill', 'black');
+
 
         let legendScale = d3.scaleLinear().domain([minScore, maxScore])
             .range([colors.length * legendSize, 0]);
@@ -269,7 +284,6 @@
 
         svg.append("g")
             .attr("class", "countries")
-            .attr("transform", "translate(50,0)")
             .selectAll("path")
             .data(countries.features)
             .enter().append("path")
@@ -284,6 +298,7 @@
             .style("stroke", "white")
             .style("stroke-width", 0.3)
             .on("mouseover", function (d) {
+                let tool_text = "No <br> Data";
                 if (d.properties["HS " + year]) {
                     let mouve = 285 - ((d.properties["HS " + year] - minScore) / (maxScore - minScore)) * 10 * legendSize;
                     curseur
@@ -292,11 +307,12 @@
                     d3.selectAll("path").filter(function (e) {
                         return d === e
                     }).style("fill", "#FA7268")
+                    tool_text = d.properties.name + " </br>" + parseFloat(d.properties["HS " + year]).toFixed(2);
                 }
                 div.transition()
                     .duration(30)
                     .style("opacity", 1);
-                div.html(d.properties.name + " </br>" + parseFloat(d.properties["HS " + year]).toFixed(2))
+                div.html(tool_text)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -347,7 +363,7 @@
             let rank = country["Happiness Rank"];
             let score = parseFloat(country["Happiness Score"]).toFixed(2);
             let somme = parseFloat(country["Economy (GDP per Capita)"]) + parseFloat(country["Family"]) + parseFloat(country["Health (Life Expectancy)"]) + parseFloat(country["Freedom"]) + parseFloat(country["Trust (Government Corruption)"]) + parseFloat(country["Generosity"]);
-            
+
             let liste = ["Year", " Whisker High", " Whisker Low", "Lower Confidence Interval", "Upper Confidence Interval", "Country", "Happiness Rank", "Happiness Score", "Standard Error", "Region", "Dystopia Residual"];
             liste.forEach(function (d) {
                 delete country[d]
