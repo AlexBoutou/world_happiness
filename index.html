@@ -8,10 +8,12 @@
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <title>WRDHAP</title>
-    <meta name="description" content="The objective is to observe the countries of the world in which the populations consider themselves the happiest; and see what are the criteria of happiness according to the regions of the world. We therefore want to visualize on a world map the level of happiness of the inhabitants of different countries, and the factors which, according to them, most influence their happiness.">
+    <meta name="description"
+          content="The objective is to observe the countries of the world in which the populations consider themselves the happiest; and see what are the criteria of happiness according to the regions of the world. We therefore want to visualize on a world map the level of happiness of the inhabitants of different countries, and the factors which, according to them, most influence their happiness.">
     <meta name="author" content="Alexandre Boutou et Blandine Barbe">
     <meta property="og:title" content="WRDHAP">
-    <meta property="og:description" content="The objective is to observe the countries of the world in which the populations consider themselves the happiest; and see what are the criteria of happiness according to the regions of the world. We therefore want to visualize on a world map the level of happiness of the inhabitants of different countries, and the factors which, according to them, most influence their happiness.">
+    <meta property="og:description"
+          content="The objective is to observe the countries of the world in which the populations consider themselves the happiest; and see what are the criteria of happiness according to the regions of the world. We therefore want to visualize on a world map the level of happiness of the inhabitants of different countries, and the factors which, according to them, most influence their happiness.">
     <style>
         body {
             margin: 0;
@@ -20,6 +22,10 @@
             right: 0;
             bottom: 0;
             left: 0;
+        }
+
+        p {
+            font-family: 'Raleway', sans-serif;
         }
 
         div.tooltip {
@@ -42,17 +48,26 @@
             position: center;
             text-align: left;
             color: #fa7268;
+            font-family: 'Raleway', sans-serif;
             border-bottom: 1px solid #cccccc;
-
             padding: 10px;
 
+        }
+
+        h2 {
+            display: block;
+            position: center;
+            text-align: center;
+            font-family: 'Raleway', sans-serif;
+            font-size: large;
+            font-style: italic;
         }
 
         nav {
             display: flex;
             float: left;
             position: relative;
-            width: 800px;
+            width: 750px;
             text-align: left;
             padding: 10px;
             margin: 0px;
@@ -63,7 +78,7 @@
 
         article {
             position: relative;
-            width: 420px;
+            width: 470px;
             float: right;
             text-align: center;
             top: 0px;
@@ -83,12 +98,20 @@
             border: 1px solid #e7e2d7;
         }
 
-        .donut {
 
+        .donut {
+            text-align: center;
+        }
+
+        .donut_infos {
+            font-size: 12px;
         }
 
         .slider_value {
             font-size: large;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            color: #FA7268;
         }
 
         .myslider {
@@ -135,9 +158,18 @@
 </header>
 <div id="container">
     <article>
-        <p><span id="DonutCountry"></span></p>
+        <h2><span id="DonutCountry"></span></h2>
         <svg class="donut" id="donut_chart"></svg>
-        <svg id="legend_donut"></svg>
+        <p class="donut_infos"> Happiness scores and rankings use data from the Gallup World Poll. Score is estimated
+            asking country
+            representatives to think of a ladder with the best possible life for them being a 10 and the worst possible
+            life being a 0 and to rate their own current lives on that scale.
+            <br>
+            <br>
+            Participants are also asked to estimate the extent to which each of six factors – economy, family, health,
+            freedom, trust, and generosity – contribute to happiness evaluation. They have no impact on the total score
+            reported for each country, but they do explain why some countries rank higher than others.
+        </p>
     </article>
     <nav>
         <svg id="legend" width=100 height=500></svg>
@@ -169,7 +201,7 @@
     let svg = d3.select("#graph")
         .append("svg")
         .attr("width", width)
-        .attr("height", height - 20)
+        .attr("height", height)
         .append('g')
         .attr('class', 'map');
 
@@ -180,12 +212,21 @@
         .append('g')
         .attr('class', 'map');
 
-    let legend_donut = d3.select("#legend_donut").append("svg")
-        .attr("width", 250)
-        .attr("height", 200);
+    let donut_width = 240,
+        donut_height = 240,
+        donut_radius = Math.min(donut_width, donut_height) / 2;
+
+    let svgdonut = d3.select("#donut_chart")
+        .attr("width", 420)
+        .attr("height", 300)
+        .append("g")
+        .attr("transform", "translate(" + (90 + donut_radius) + "," + (50 + donut_radius) + ")");
+
+    let colour_donut = ["#E38F73", "#839A88", "#fa7268", "#69b3a2", "#B76E5D", "#CCD3C1"];//d3.scaleOrdinal(d3.schemeCategory20);
+
 
     let projection = d3.geoNaturalEarth1()
-        .scale(145)
+        .scale(130)
         .translate([width / 2 - 100, height / 1.8]);
 
     let path = d3.geoPath().projection(projection);
@@ -209,6 +250,8 @@
         .defer(d3.csv, `./data/${year}.csv`)
         .await(world_map);
 
+    let color_map = d3.scaleSequential(d3.interpolateBlues);
+
 
     function update_map() {
         console.log("UPDATE MAP WITH " + year + " DATA");
@@ -217,11 +260,9 @@
 
         let scores = {};
 
-        let color = d3.scaleSequential(d3.interpolateBlues);
-
         svg.select("g").selectAll("path").transition().style("fill", function (d) {
             if (d.properties["HS " + year]) {
-                return color((d.properties["HS " + year] - minScore) / (maxScore - minScore))
+                return color_map((d.properties["HS " + year] - minScore) / (maxScore - minScore))
             } else {
                 return "lightgrey"
             }
@@ -236,9 +277,8 @@
         let scores = {};
 
 
-        let color = d3.scaleSequential(d3.interpolateBlues);
         let colors = d3.range(10).map(function (d) {
-            return color(d / 10)
+            return color_map(d / 10)
         }).reverse();
 
         let div = d3.select("body").append("div")
@@ -299,7 +339,7 @@
             .attr("d", path)
             .style("fill", function (d) {
                 if (d.properties["HS " + year]) {
-                    return color((d.properties["HS " + year] - minScore) / (maxScore - minScore))
+                    return color_map((d.properties["HS " + year] - minScore) / (maxScore - minScore))
                 } else {
                     return "lightgrey"
                 }
@@ -331,7 +371,7 @@
                         .style("opacity", 0);
                     d3.selectAll("path").filter(function (e) {
                         return d === e
-                    }).style("fill", color((d.properties["HS " + year] - minScore) / (maxScore - minScore)))
+                    }).style("fill", color_map((d.properties["HS " + year] - minScore) / (maxScore - minScore)))
                 }
                 div.transition()
                     .duration(500)
@@ -344,21 +384,6 @@
             });
 
     }
-
-
-    // Define size & radius of donut pie chart
-    let donut_width = 250,
-        donut_height = 250,
-        donut_radius = Math.min(donut_width, donut_height) / 2;
-
-    // Append SVG attributes and append g to the SVG
-    let svgdonut = d3.select("#donut_chart")
-        .attr("width", 500)
-        .attr("height", 300)
-        .append("g")
-        .attr("transform", "translate(" + (90 + donut_radius) + "," + (50 + donut_radius) + ")");
-
-    let colour_donut = ["#E38F73", "#839A88", "#fa7268", "#69b3a2", "#B76E5D", "#CCD3C1"];//d3.scaleOrdinal(d3.schemeCategory20);
 
     function add_donut_labels(g, pie, donut, arc, outerArc, radius, somme) {
 
