@@ -22,11 +22,24 @@ This is a gathering of the results of the Gallup report on happiness from 2015 t
 
 ## The project
 
+
 - A first view of the level of happiness of 150 countries of the world
+
+<p align="center">
+  <img src="img/Map.PNG" width="600" title="Map of the level of happiness in the world">
+</p>
 
 - A more precise visualization of a specific country and the factors influencing its happiness
 
+<p align="center">
+  <img src="img/Country.PNG" width="500" title="Factors of happiness in Canada in 2016">
+</p>
+
 - The global visualization with both views and a temporal slider to travel in the last 5 yers.
+
+<p align="center">
+  <img src="img/Global.png" width="850" title="Happiness in the World">
+</p>
 
 ## Online resource
 
