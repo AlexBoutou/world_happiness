@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <link rel="icon"
           href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/earth-globe-europe-africa_1f30d.png">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <title>WRDHAP</title>
     <meta name="description"
           content="The objective is to observe the countries of the world in which the populations consider themselves the happiest; and see what are the criteria of happiness according to the regions of the world. We therefore want to visualize on a world map the level of happiness of the inhabitants of different countries, and the factors which, according to them, most influence their happiness.">
@@ -65,10 +62,8 @@
 
         nav {
             display: flex;
-            float: left;
-            position: relative;
-            width: 750px;
-            text-align: left;
+            position: absolute;
+            width: 850px;
             padding: 10px;
             margin: 0px;
             border-bottom: 1px solid #cccccc;
@@ -98,6 +93,16 @@
             border: 1px solid #e7e2d7;
         }
 
+        .map_container {
+            position: absolute;
+            width: 850px;
+
+        }
+
+        .rangeslider {
+            text-align: center;
+            width: 850px;
+        }
 
         .donut {
             text-align: center;
@@ -172,20 +177,38 @@
         </p>
     </article>
     <nav>
-        <svg id="legend" width=100 height=500></svg>
-        <svg id="graph" width=900 height=500></svg>
+        <div class="map_container">
+            <div>
+                <svg id="legend" width=75 height=400></svg>
+                <svg id="graph" width=750 height=400></svg>
+            </div>
+            <br>
+            <div class="rangeslider">
+                <input type="range" min="2015" max="2019" value="2015"
+                       class="myslider" id="sliderRange">
+                <p class="slider_value"><span id="demo"></span></p>
+            </div>
+        </div>
     </nav>
 </div>
 <footer>
-    <div class="rangeslider">
-        <input type="range" min="2015" max="2019" value="2015"
-               class="myslider" id="sliderRange">
-        <p class="slider_value"><span id="demo"></span></p>
+    <div>
+        <p>
+            made by
+            <b>Alexandre BOUTOU </b>
+            &
+            <b>Blandine BARBE </b>
+            <br>
+            see on
+            <a href="https://github.com/AlexBoutou/world_happiness">Github</a> | part of
+            <a href="https://github.com/LyonDataViz/MOS5.5-Dataviz">Interactive Data Visualization</a> course at ECL
+        </p>
     </div>
 </footer>
 
-
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="https://d3js.org/d3-color.v1.min.js"></script>
@@ -227,7 +250,7 @@
 
     let projection = d3.geoNaturalEarth1()
         .scale(130)
-        .translate([width / 2 - 100, height / 1.8]);
+        .translate([width / 2 - 100, height / 2.2]);
 
     let path = d3.geoPath().projection(projection);
 
@@ -258,8 +281,6 @@
         let maxScore = 7.5;
         let minScore = 3;
 
-        let scores = {};
-
         svg.select("g").selectAll("path").transition().style("fill", function (d) {
             if (d.properties["HS " + year]) {
                 return color_map((d.properties["HS " + year] - minScore) / (maxScore - minScore))
@@ -274,8 +295,6 @@
         let maxScore = 7.5;
         let minScore = 2.5;
 
-        let scores = {};
-
 
         let colors = d3.range(10).map(function (d) {
             return color_map(d / 10)
@@ -289,7 +308,7 @@
         let legendWidth = 20;
 
         let legend = svg_legend.append('g')
-            .attr('transform', 'translate(25, 100)');
+            .attr('transform', 'translate(25, 60)');
 
         legend.selectAll()
             .data(colors)
