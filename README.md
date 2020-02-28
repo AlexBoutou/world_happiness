@@ -1,4 +1,5 @@
-# Happiness in the World
+# Happiness in the World <div style="float: left;"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/earth-globe-europe-africa_1f30d.png" width="30"/></div>
+
 
 #### Authors of the project :
 Alexandre Boutou & Blandine Barbe
