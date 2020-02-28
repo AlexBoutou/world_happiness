@@ -45,7 +45,7 @@ This is a gathering of the results of the Gallup report on happiness from 2015 t
 </p>
 </br>
 
-- The global visualization with both views and a temporal slider to travel in the last 5 yers.
+- The global visualization with both views and a temporal slider to travel in the last 5 years.
 
 <p align="center">
   <img src="img/Global.png" width="850" title="Happiness in the World">
