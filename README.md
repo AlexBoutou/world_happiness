@@ -1,4 +1,4 @@
-# Happiness in the World <div style="float: left;"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/earth-globe-europe-africa_1f30d.png" width="30"/></div>
+# Happiness in the World <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/earth-globe-europe-africa_1f30d.png" width="30"/>
 
 
 #### Authors of the project :
